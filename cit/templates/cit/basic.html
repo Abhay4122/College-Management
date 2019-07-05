@@ -1,0 +1,337 @@
+<html lang="en-us">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% block title %} {% endblock %}
+    {% load static %}
+
+    <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700%7CMontserrat:400,700%7CRaleway:300,400,600"
+        rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'cit/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'cit/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'cit/libs/rs-plugin/css/settings.css' %}" media="screen">
+    <link rel="stylesheet" href="{% static 'cit/css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'cit/css/my.css' %}">
+    <link rel="stylesheet" href="{% static 'cit/libs/page-slider/animate.min.css' %}">
+</head>
+
+<body>
+    <div id="wrapper" class="animsition">
+
+        <div class="top-bar-wrapper">
+            <a href="#" id="top-bar-trigger" class="top-bar-trigger"><i class="icon icon_plus"></i></a>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-4 xs-box">
+                        <h3 class="title-a color-inherit mb20">About us</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas consequuntur aliquid quisquam
+                            architecto.</p>
+                        <a href="#" class="read-more">read more</a>
+                    </div>
+                    <div class="col-sm-4 xs-box">
+                        <address class="contact-widget">
+                            <p><i class="icon icon_pin_alt"></i>California, Los Angeles 2200 Avenue</p>
+                            <p><i class="icon icon_mail_alt"></i><a href="#"
+                                    class="__cf_email__">[email&#160;protected]</a> </p>
+                            <p><i class="icon icon_phone"></i>0 555 255 444</p>
+                        </address>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="sidebar-tweet footer-tweet clearfix">
+                            <a href="#" class="tweet-user">#abusinesstheme</a>
+                            <small>22 hours ago</small>
+                            <p class="tweet-content">There’s a reason why I advise you to plug in your personal
+                                commitments first when filling in your time-blocking schedule.</p>
+                            <i class="icon social_twitter"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="header-transparent menu-fixed-dark menu-dark-mobiles menu-dark">
+            <header class="header-wrapper">
+                <div class="main-header">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="menu-wrapper">
+                                    <div class="logo-wrapper">
+                                        <a href="/cit" class="logo">
+                                            <img src="{% static 'cit/images/logo.png' %}" class="logo-img logo-dark"
+                                                alt="Logo">
+                                            <img src="{% static 'cit/images/logo.png' %}" class="logo-img logo-light"
+                                                alt="Logo">
+                                        </a>
+                                    </div>
+                                    <nav class="navbar-right">
+                                        <ul class="menu">
+
+                                            <li class="toggle-menu"><i class="icon icon_menu"></i></li>
+                                            <li><a href="/cit" class="bor_btn">Home<span></span><span></span></a></li>
+                                            <li><a href="/cit/about" class="bor_btn">About
+                                                    us<span></span><span></span></a></li>
+                                            <li>
+                                                <a href="#" class="bor_btn">Services<span></span><span></span></a>
+                                                <ul class="submenu">
+                                                    <li><a href="#">Web Designing</a></li>
+                                                    <li><a href="#">App Designing</a></li>
+                                                    <li><a href="#">Graphics Designing</a></li>
+                                                    <li><a href="#">E-Commerce Solution</a></li>
+                                                    <li><a href="#">Digital Marketing</a></li>
+                                                </ul>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="bor_btn">Training<span></span><span></span></a>
+                                                <ul class="submenu">
+                                                    <li>
+                                                        <a href="#">Live Project <i
+                                                                class="icon icon-direction icon_plus"></i></a>
+                                                        <ul class="submenu">
+                                                            <li><a href="#">PHP</a></li>
+                                                            <li><a href="#">ASP.NET</a></li>
+                                                            <li><a href="#">JAVA</a></li>
+                                                            <li><a href="#">C, C++, C#</a></li>
+                                                        </ul>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">I.T. Engineering <i
+                                                                class="icon icon-direction icon_plus"></i></a>
+                                                        <ul class="submenu">
+                                                            <li><a href="#">Hardware</a></li>
+                                                            <li><a href="#">Networking</a></li>
+                                                            <li><a href="#">CCNA</a></li>
+                                                            <li><a href="#">Server</a></li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li><a href="/cit/contact" class="bor_btn">Contact
+                                                    Us<span></span><span></span></a>
+                                            </li>
+                                            <li><a href="#" class="bor_btn"
+                                                    onclick="login()">Login<span></span><span></span></a></li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+        </div>
+
+        <div>
+            {% block body %} {% endblock %}
+        </div>
+
+        <div class="mb50"></div>
+        <footer class="footer-wrapper footer-background bg-img bg04 stellar" data-stellar-background-ratio="0.4">
+            <div class="bg-overlay gradient-1"></div>
+            <div class="container">
+                <div class="row col-p30">
+                    <div class="col-sm-12 col-md-4">
+                        <div class="footer-widget">
+                            <h3 class="footer-title">About us</h3>
+                            <p>Creator Infotech, a Freelance IT Company situated in Lard Shiva Land Uttar Pradesh,
+                                Varanasi, with an objective to serve Indian clients and support to digital india.</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-4">
+                        <div class="footer-widget">
+                            <h3 class="footer-title">Get in touch</h3>
+                            <address class="contact-widget">
+                                <p><i class="icon icon_pin_alt"></i> Babatpur Varanasi</p>
+                                <p><i class="icon icon_mail_alt"></i> abhay@creatorinfotech.com</p>
+                                <p><i class="icon icon_phone"></i> +91 8318231956</p>
+                            </address>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-4">
+                        <div class="footer-widget">
+                            <h3 class="footer-title">Be Social</h3>
+                            <div class="clearfix">
+                                <ul class="footer-social">
+                                    <li><a href="#"><i class="icon social_twitter"></i></a></li>
+                                    <li><a href="#"><i class="icon social_facebook"></i></a></li>
+                                    <li><a href="#"><i class="icon social_googleplus"></i></a></li>
+                                </ul>
+                            </div>
+                            <div class="mb40"></div>
+                            <a href="/cit/contact" class="btn-e">Contact us</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 col-md-6 col-sm-push-6 col-md-push-6">
+                        <div class="clearfix">
+                            <div class="pull-right xs-pull-left">
+                                <ul class="footer-links">
+                                    <li><a href="/cit">Home</a></li>
+                                    <li><a href="#">Privacy Policy</a></li>
+                                    <li><a href="#">Services</a></li>
+                                    <li><a href="#">Terms</a></li>
+                                    <li><a href="#">Pricing</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-sm-pull-6 col-md-pull-6">
+                        <p class="copyright">&copy; &nbsp; Copyright 2019 Creator Infotech</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+
+    <div class="check-media"></div>
+    <!-- Inquery Button -->
+    <a href="#" onclick="inq()">
+        <div class="inq_dv"><span>Enquiry</span><i class="icon icon_search"></i></div>
+    </a>
+    <!-- Login Popup -->
+    <div class="popup_big" id="pop_login">
+        <div class="col-md-4 popup_small animated wow zoomIn" data-wow-delay=".3s">
+            <div class="close_pop" onclick="clos()">
+                <i class="icon icon_close" onclick="clos()"></i>
+            </div>
+            <div class="relative text-center mt20">
+                <h2 class="title-large mb10" style="color: #fff;">Login</h2>
+                <div class="br-bottom-center mb50"></div>
+            </div>
+            <form name="login_frm" method="POST" action="/cit/usr_login">
+                {% csrf_token %}
+                <input type="email" name="lgin_unam" class="form-control inpt_bx mb20" placeholder="User Name / Email" required/>
+                <input type="Password" name="lgin_pwd" class="form-control inpt_bx" placeholder="Password" required/>
+                <div class="text-center mt30 mb30">
+                    <button id="log_in" name="lgin_sub" class="bor_btn butt_on">Login<span></span><span></span></button>
+                </div>
+            </form>
+            <p>
+                <i class="icon icon_info"></i> &nbsp; Not Have Account Please &nbsp; <a href="#"
+                    onclick="reg()">Register</a>
+            </p>
+        </div>
+    </div>
+    <!-- Register popup -->
+    <div class="popup_big" id="pop_reg">
+        <div class="col-md-4 popup_small animated wow zoomIn" data-wow-delay=".3s">
+            <div class="close_pop" onclick="clos()">
+                <i class="icon icon_close" onclick="clos()"></i>
+            </div>
+            <div class="relative text-center mt20">
+                <h2 class="title-large mb10" style="color: #fff;">Register</h2>
+                <div class="br-bottom-center mb50"></div>
+            </div>
+            <form name="reg_form" onsubmit="return reg_from_sub()" method="POST" action="/cit/usr_reg">
+                {% csrf_token %}
+                <input type="text" name="reg_f_nam" class="form-control inpt_bx mb20" placeholder="First Name" required/>
+                <input type="text" name="reg_l_nam" class="form-control inpt_bx mb20" placeholder="Last Name" required/>
+                <input type="email" name="reg_mail" class="form-control inpt_bx mb20" placeholder="Email" required/>
+                <input type="password" name="reg_pwd" class="form-control inpt_bx mb20" placeholder="Password" required/>
+                <p id="reg_p_pwd" class="frm_valid_line"></p>
+                <input type="password" name="reg_repwd" class="form-control inpt_bx mb20" placeholder="Confirm Password" required/>
+                <p id="reg_p_repwd" class="frm_valid_line"></p>
+                <div class="text-center mt30 mb30">
+                    <button id="log_in" name="reg_sub" class="bor_btn butt_on">Register<span></span><span></span></button>
+                </div>
+            </form>
+            <p>
+                <i class="icon icon_info"></i> &nbsp; Already Have Account Please &nbsp; <a href="#" onclick="login()">Login</a>
+            </p>
+        </div>
+    </div>
+    <!--  Enquery popup  -->
+    <div class="popup_big" id="pop_inq">
+        <div class="col-md-4 popup_small animated wow zoomIn" data-wow-delay=".3s">
+            <div class="close_pop" onclick="clos()">
+                <i class="icon icon_close" onclick="clos()"></i>
+            </div>
+            <div class="relative text-center mt20">
+                <h2 class="title-large mb10" style="color: #fff;">Enquiry</h2>
+                <div class="br-bottom-center mb50"></div>
+            </div>
+            <form name="inq_form" method="POST" action="/cit/usr_inq">
+                {% csrf_token %}
+                <input type="text" name="inq_nam" class="form-control inpt_bx mb20" placeholder="Full Name" required/>
+                <input type="email" name="inq_mail" class="form-control inpt_bx mb20" placeholder="Email" required/>
+                <input type="text" name="inq_mono" class="form-control inpt_bx mb20" placeholder="Contact No" required/>
+                <input type="text" name="inq_topic" class="form-control inpt_bx mb20" placeholder="Enquiry Subject" required/>
+                <div class="text-center mt30 mb30">
+                    <button id="log_in" name="inq_sub" class="bor_btn butt_on">Submit<span></span><span></span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <p id="reg_flag" class="frm_valid_line">{{flag_reg}}</p>
+    <p id="inq_flag" class="frm_valid_line">{{flag_inq}}</p>
+    <p id="login_faliour" class="frm_valid_line">{{login_feliour}}</p>
+    <p id="login_redirect" class="frm_valid_line">{{login_redirect}}</p>
+    <p id="logout_success" class="frm_valid_line">{{logout_success}}</p>
+
+    <script src="{% static 'cit/js/jquery.min.js' %}"></script>
+    <script src="{% static 'cit/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'cit/js/main.js' %}"></script>
+    <script src="{% static 'cit/js/my.js' %}"></script>
+    <script src="{% static 'cit/libs/rs-plugin/js/revolution-slider.js' %}"></script>
+    <script src="{% static 'cit/libs/auto-type/typed.js' %}" type="text/javascript"></script>
+    <script src="{% static 'cit/libs/auto-type/demos.js' %}"></script>
+    <script src="{% static 'cit/libs/page-slider/wow.min.js' %}"></script>
+    <script src="{% static 'cit/libs/particles/particles.js' %}"></script>
+    <script src="{% static 'cit/libs/particles/app.js' %}"></script>
+    <script>
+        new WOW().init();
+        
+        var get_reg_flag = document.getElementById('reg_flag').textContent
+        if(get_reg_flag === 'True')
+        {
+            alert('Registration Successfull !!')
+            window.location.href = "/cit"
+        }
+        if(get_reg_flag === 'False')
+        {
+            alert('The User is Added alredy, Please Login !!')
+            window.location.href = "/cit"
+        }
+
+        var get_inq_flag = document.getElementById('inq_flag').textContent
+        if(get_inq_flag === 'True')
+        {
+            alert('Thanks For Inquery us. We will be in your touch Soon !!')
+            window.location.href = "/cit"
+        }
+        if(get_inq_flag === 'False')
+        {
+            alert('Sorry There are some Problem To connect to Database !!')
+            window.location.href = "/cit"
+        }
+
+        var get_login_flag = document.getElementById('login_faliour').textContent
+        if(get_login_flag === 'False')
+        {
+            alert('Sorry Wrong User name Or Password !!')
+            window.location.href = "/cit"
+        }
+
+        var get_login_redirect = document.getElementById('login_redirect').textContent
+        if(get_login_redirect === 'False')
+        {
+            alert('Sorry End of Session, Please Login again !!')
+            window.location.href = "/cit"
+        }
+
+        var get_logout_success = document.getElementById('logout_success').textContent
+        if(get_logout_success === 'True')
+        {
+            alert('Thanks for Visit Dashboard You are Successfully Logout !!')
+            window.location.href = "/cit"
+        }
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,154 @@
+{% extends 'cit/das_basic.html' %}
+
+{% block title %}<title>CIT Exam Marks</title> {% endblock %}
+
+{% load static %}
+
+{% block body %}
+
+	<section class="section-intro breadcrumbs-right bg-img bg47 stellar" data-stellar-background-ratio="0.4">
+	    <div class="bg-overlay gradient-1"></div>
+	    <div class="container">
+	        <div class="row">
+	            <div class="col-sm-12">
+	                <h1 class="intro-title mt50 mb40">Add Exam Marks</h1>
+	            </div>
+	        </div>
+	    </div>
+	</section>
+	<section class="section page-contact mb20">
+	    <div class="container">
+	        <div class="row col-p30">
+	            <div class="col-md-8 col-md-push-2 sm-box3">
+                    <form name="add_cor_frm" method="POST" enctype="multipart/form-data" action="/cit/add_marks">
+                        {% csrf_token %}
+                        <div class="col-md-6 col-md-push-2" id="hid5">
+                            <select class="form-control inpt_bx_blck mb20" name="exm_cors" id="hid1">
+                                <option value=""> --- Select course Name --- </option>
+                                {% for i in all_cors %}
+                                    <option value="{{i.cor_nam}}"> {{i.cor_nam}} </option>
+                                {% endfor %}
+                            </select>
+                            <select class="form-control inpt_bx_blck mb20" name="exm_nam" id="hid2">
+                                <option value=""> --- Select Student Name --- </option>
+                                {% for i in all_std %}
+                                    <option value="{{i.reg_nam}}"> {{i.reg_nam}} </option>
+                                {% endfor %}
+                            </select>
+                            <select class="form-control inpt_bx_blck mb20" name="exm_fat" id="hid3">
+                                <option value=""> --- Select Father Name --- </option>
+                                {% for i in all_std %}
+                                    <option value="{{i.reg_fat_nam}}"> {{i.reg_fat_nam}} </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </form>
+                    <form name="add_cor_frm" method="POST" enctype="multipart/form-data" action="/cit/marks">
+                        {% csrf_token %}
+                        <div id="hid4">
+                            {% for i in all_std %}
+                                <input type="hidden" name="exm_hid" value="add" />
+                                <input type="hidden" name="exm_std_id" value="{{i.reg_id}}" />
+                                <input type="hidden" name="exm_std_img" value="{{i.reg_img}}" />
+                                <div class="col-md-6">
+                                    <input type="text" name="exm_std_nam" class="form-control inpt_bx_blck mb20" value="{{i.reg_nam}}" readonly />
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" name="exm_std_fat" class="form-control inpt_bx_blck mb20" value="{{i.reg_fat_nam}}" readonly />
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" name="exm_reg_num" class="form-control inpt_bx_blck mb20" value="{{i.reg_frm_no}}" readonly />
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" name="exm_location" class="form-control inpt_bx_blck mb20" value="{{i.reg_location}}" readonly />
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" name="exm_std_cors" class="form-control inpt_bx_blck mb20" value="{{i.reg_cor}}" readonly />
+                                </div>
+                            {% endfor %}
+                            <div class="col-md-6">
+                                <input type="text" name="exm_enroll" class="form-control inpt_bx_blck mb20" placeholder="Enrolment Number" />
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" name="exm_certi" class="form-control inpt_bx_blck mb20" placeholder="Certificate Number" />
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" name="exm_det" class="form-control inpt_bx_blck mb20" placeholder="Exam Date" onfocus="(this.type='date')" />
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" name="exm_award_det" class="form-control inpt_bx_blck mb20" placeholder="Award Date" onfocus="(this.type='date')" />
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" name="exm_session" class="form-control inpt_bx_blck mb20" placeholder="Session, Ex. June-2018 to November-2018" />
+                            </div>
+
+                            <div class="col-md-12 exam_hed">
+                                <h3>Marks of Student</h3>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <input type="number" name="exm_theory" min="0" max="100" class="form-control inpt_bx_blck mb20" placeholder="Theory (Fundamental, Internet)" />
+                            </div>
+                            <div class="col-md-6">
+                                <input type="number" name="exm_prect" min="0" max="50" class="form-control inpt_bx_blck mb20" placeholder="Practical (Ms Office, Windows)" />
+                            </div>
+                            <div class="col-md-6">
+                                <input type="number" name="exm_oral" min="0" max="50" class="form-control inpt_bx_blck mb20" placeholder="Oral/Project" />
+                            </div>
+
+                            <div class="col-md-12" style="text-align: center;">
+                                <button id="cor_sub" name="cors_sub" class="bor_btn_blk butt_on_blk">Submit<span></span><span></span></button>
+                            </div>
+                        </div>
+	                </form>
+	            </div>
+	        </div>
+		</div>
+    </section>
+    <p id="hid_val" class="frm_valid_line">{{hid_val}}</p>
+
+{% endblock %}
+
+{% block js %}
+    <script>
+        var std_nam = document.getElementById('std_nam');
+        var fat_nam = document.getElementById('fat_nam');
+        var hid1 = document.getElementById('hid1');
+        var hid2 = document.getElementById('hid2');
+        var hid3 = document.getElementById('hid3');
+        var hid4 = document.getElementById('hid4');
+        var hid5 = document.getElementById('hid5');
+        var hid_val = document.getElementById('hid_val').textContent;
+        hid1.style.display = 'none';
+        hid2.style.display = 'none';
+        hid3.style.display = 'none';
+        hid4.style.display = 'none';
+
+        if (hid_val == 0){
+            hid1.style.display = 'block';
+        }
+        if (hid_val == 1){
+            hid2.style.display = 'block';
+        }
+        if (hid_val == 2){
+            hid3.style.display = 'block';
+        }
+        if (hid_val == 3){
+            hid4.style.display = 'block';
+            hid5.style.display = 'none';
+        }
+        var flag = false;
+
+        jQuery(function () {
+			jQuery('#hid1').change(function () {
+				this.form.submit();
+			});
+			jQuery('#hid2').change(function () {
+				this.form.submit();
+			});
+			jQuery('#hid3').change(function () {
+				this.form.submit();
+			});
+		});
+    </script>
+{% endblock %}

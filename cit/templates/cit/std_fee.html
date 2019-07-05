@@ -1,0 +1,299 @@
+{% extends 'cit/das_basic.html' %}
+
+{% block title %}<title>Student Fee</title> {% endblock %}
+
+{% load static %}
+
+{% block body %}
+
+	<section class="section-intro breadcrumbs-right bg-img bg47 stellar" data-stellar-background-ratio="0.4">
+	    <div class="bg-overlay gradient-1"></div>
+	    <div class="container">
+	        <div class="row">
+	            <div class="col-sm-12">
+	                <h1 class="intro-title mt50 mb40">Add Student Fee</h1>
+	            </div>
+	        </div>
+	    </div>
+	</section>
+	<section class="section page-contact mb20">
+	    <div class="container">
+	        <div class="row col-p30">
+	            <div class="col-md-8 col-md-push-2 sm-box3">
+                    <form name="add_cor_frm" method="POST" enctype="multipart/form-data" action="/cit/add_fee">
+                        {% csrf_token %}
+                        <div class="col-md-6 col-md-push-2" id="hid5">
+                            <select class="form-control inpt_bx_blck mb20" name="fee_cors" id="hid1">
+                                <option value=""> --- Select course Name --- </option>
+                                {% for i in all_cors %}
+                                    <option value="{{i.cor_nam}}"> {{i.cor_nam}} </option>
+                                {% endfor %}
+                            </select>
+                            <select class="form-control inpt_bx_blck mb20" name="fee_nam" id="hid2">
+                                <option value=""> --- Select Student Name --- </option>
+                                {% for i in all_std %}
+                                    <option value="{{i.reg_nam}}"> {{i.reg_nam}} </option>
+                                {% endfor %}
+                            </select>
+                            <select class="form-control inpt_bx_blck mb20" name="fee_fat" id="hid3">
+                                <option value=""> --- Select Father Name --- </option>
+                                {% for i in all_std %}
+                                    <option value="{{i.reg_fat_nam}}"> {{i.reg_fat_nam}} </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </form>
+                    <form name="add_cor_frm" method="POST" enctype="multipart/form-data" action="/cit/fee">
+                        {% csrf_token %}
+                        <div id="hid4">
+                            {% for i in all_std %}
+                                <input type="hidden" name="fee_std_id" value="{{i.reg_id}}" />
+                                <input type="hidden" name="fee_std_img" value="{{i.reg_img}}" />
+                                <div class="col-md-6">
+                                    <input type="text" name="fee_std_nam" class="form-control inpt_bx_blck mb20" value="{{i.reg_nam}}" readonly />
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" name="fee_std_fat" class="form-control inpt_bx_blck mb20" value="{{i.reg_fat_nam}}" readonly />
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" name="fee_location" class="form-control inpt_bx_blck mb20" value="{{i.reg_location}}" readonly />
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" name="fee_std_cors" class="form-control inpt_bx_blck mb20" value="{{i.reg_cor}}" readonly />
+                                </div>
+                            {% endfor %}
+
+                            <div class="col-md-12 exam_hed">
+                                <div class="col-md-4">
+                                    <h4 class="fee_apply">Applied Fee: {{cors_pak}}</h3>
+                                </div>
+                                <div class="col-md-5">
+                                    <h4 class="fee_total">Paid Fee: {{total_paid}}</h3>
+                                </div>
+                                <div class="col-md-3">
+                                    <h4 class="fee_due">Due Fee: {{due_fee}}</h3>
+                                </div>
+                            </div>
+
+                            {% if fee_not_exist %}
+                                <input type="hidden" name="fee_hid" value="add" />
+                                <div class="col-md-2">
+                                    <label> Januery </label>
+                                    <input type="number" name="jan_fee" class="form-control mb20" value="0" />
+                                </div>
+                                <div class="col-md-2">
+                                    <label> February </label>
+                                    <input type="number" name="feb_fee" class="form-control mb20" value="0" />
+                                </div>
+                                <div class="col-md-2">
+                                    <label> March </label>
+                                    <input type="number" name="mar_fee" class="form-control mb20" value="0" />
+                                </div>
+                                <div class="col-md-2">
+                                    <label> April </label>
+                                    <input type="number" name="apr_fee" class="form-control mb20" value="0" />
+                                </div>
+                                <div class="col-md-2">
+                                    <label> May </label>
+                                    <input type="number" name="may_fee" class="form-control mb20" value="0" />
+                                </div>
+                                <div class="col-md-2">
+                                    <label> June </label>
+                                    <input type="number" name="jun_fee" class="form-control mb20" value="0" />
+                                </div>
+                                <div class="col-md-2">
+                                    <label> July </label>
+                                    <input type="number" name="jul_fee" class="form-control mb20" value="0" />
+                                </div>
+                                <div class="col-md-2">
+                                    <label> August </label>
+                                    <input type="number" name="aug_fee" class="form-control mb20" value="0" />
+                                </div>
+                                <div class="col-md-2">
+                                    <label> September </label>
+                                    <input type="number" name="sep_fee" class="form-control mb20" value="0" />
+                                </div>
+                                <div class="col-md-2">
+                                    <label> October </label>
+                                    <input type="number" name="oct_fee" class="form-control mb20" value="0" />
+                                </div>
+                                <div class="col-md-2">
+                                    <label> November </label>
+                                    <input type="number" name="nov_fee" class="form-control mb20" value="0" />
+                                </div>
+                                <div class="col-md-2">
+                                    <label> December </label>
+                                    <input type="number" name="dec_fee" class="form-control mb20" value="0" />
+                                </div>
+                            {% endif %}
+                            
+                            {% if fee_exist %}
+                                {% for i in fee_detail %}
+                                    <input type="hidden" name="fee_hid" value="upd" />
+                                    <div class="col-md-2">
+                                        {% if i.jan_fee != 0  %}
+                                            <label class="exist_det"> {{i.jan_fee_det}} </label>
+                                            <input type="number" name="jan_fee" class="form-control mb20" value="{{i.jan_fee}}" readonly />
+                                        {% else %}
+                                            <label> Januery </label>
+                                            <input type="number" name="jan_fee" class="form-control mb20" value="0" />
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-md-2">
+                                        {% if i.feb_fee != 0  %}
+                                            <label class="exist_det"> {{i.feb_fee_det}} </label>
+                                            <input type="number" name="feb_fee" class="form-control mb20" value="{{i.feb_fee}}" readonly />
+                                        {% else %}
+                                        <label> February </label>
+                                        <input type="number" name="feb_fee" class="form-control mb20" value="0" />
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-md-2">
+                                        {% if i.mar_fee != 0  %}
+                                            <label class="exist_det"> {{i.mar_fee_det}} </label>
+                                            <input type="number" name="mar_fee" class="form-control mb20" value="{{i.mar_fee}}" readonly />
+                                        {% else %}
+                                        <label> March </label>
+                                        <input type="number" name="mar_fee" class="form-control mb20" value="0" />
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-md-2">
+                                        {% if i.apr_fee != 0  %}
+                                            <label class="exist_det"> {{i.apr_fee_det}} </label>
+                                            <input type="number" name="apr_fee" class="form-control mb20" value="{{i.apr_fee}}" readonly />
+                                        {% else %}
+                                        <label> April </label>
+                                        <input type="number" name="apr_fee" class="form-control mb20" value="0" />
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-md-2">
+                                        {% if i.may_fee != 0  %}
+                                            <label class="exist_det"> {{i.may_fee_det}} </label>
+                                            <input type="number" name="may_fee" class="form-control mb20" value="{{i.may_fee}}" readonly />
+                                        {% else %}
+                                        <label> May </label>
+                                        <input type="number" name="may_fee" class="form-control mb20" value="0" />
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-md-2">
+                                        {% if i.jun_fee != 0  %}
+                                            <label class="exist_det"> {{i.jun_fee_det}} </label>
+                                            <input type="number" name="jun_fee" class="form-control mb20" value="{{i.jun_fee}}" readonly />
+                                        {% else %}
+                                        <label> June </label>
+                                        <input type="number" name="jun_fee" class="form-control mb20" value="0" />
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-md-2">
+                                        {% if i.jul_fee != 0  %}
+                                            <label class="exist_det"> {{i.jul_fee_det}} </label>
+                                            <input type="number" name="jul_fee" class="form-control mb20" value="{{i.jul_fee}}" readonly />
+                                        {% else %}
+                                        <label> July </label>
+                                        <input type="number" name="jul_fee" class="form-control mb20" value="0" />
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-md-2">
+                                        {% if i.aug_fee != 0  %}
+                                            <label class="exist_det"> {{i.aug_fee_det}} </label>
+                                            <input type="number" name="aug_fee" class="form-control mb20" value="{{i.aug_fee}}" readonly />
+                                        {% else %}
+                                        <label> August </label>
+                                        <input type="number" name="aug_fee" class="form-control mb20" value="0" />
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-md-2">
+                                        {% if i.sep_fee != 0  %}
+                                            <label class="exist_det"> {{i.sep_fee_det}} </label>
+                                            <input type="number" name="sep_fee" class="form-control mb20" value="{{i.sep_fee}}" readonly />
+                                        {% else %}
+                                        <label> September </label>
+                                        <input type="number" name="sep_fee" class="form-control mb20" value="0" />
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-md-2">
+                                        {% if i.oct_fee != 0  %}
+                                            <label class="exist_det"> {{i.oct_fee_det}} </label>
+                                            <input type="number" name="oct_fee" class="form-control mb20" value="{{i.oct_fee}}" readonly />
+                                        {% else %}
+                                        <label> October </label>
+                                        <input type="number" name="oct_fee" class="form-control mb20" value="0" />
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-md-2">
+                                        {% if i.nov_fee != 0  %}
+                                            <label class="exist_det"> {{i.nov_fee_det}} </label>
+                                            <input type="number" name="nov_fee" class="form-control mb20" value="{{i.nov_fee}}" readonly />
+                                        {% else %}
+                                        <label> November </label>
+                                        <input type="number" name="nov_fee" class="form-control mb20" value="0" />
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-md-2">
+                                        {% if i.dec_fee != 0  %}
+                                            <label class="exist_det"> {{i.dec_fee_det}} </label>
+                                            <input type="number" name="dec_fee" class="form-control mb20" value="{{i.dec_fee}}" readonly />
+                                        {% else %}
+                                        <label> December </label>
+                                        <input type="number" name="dec_fee" class="form-control mb20" value="0" />
+                                        {% endif %}
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+
+                            <div class="col-md-12" style="text-align: center;">
+                                <button id="cor_sub" name="cors_sub" class="bor_btn_blk butt_on_blk">Submit<span></span><span></span></button>
+                            </div>
+                        </div>
+	                </form>
+	            </div>
+	        </div>
+		</div>
+    </section>
+    <p id="hid_val" class="frm_valid_line">{{hid_val}}</p>
+
+{% endblock %}
+
+{% block js %}
+    <script>
+        var std_nam = document.getElementById('std_nam');
+        var fat_nam = document.getElementById('fat_nam');
+        var hid1 = document.getElementById('hid1');
+        var hid2 = document.getElementById('hid2');
+        var hid3 = document.getElementById('hid3');
+        var hid4 = document.getElementById('hid4');
+        var hid5 = document.getElementById('hid5');
+        var hid_val = document.getElementById('hid_val').textContent;
+        hid1.style.display = 'none';
+        hid2.style.display = 'none';
+        hid3.style.display = 'none';
+        hid4.style.display = 'none';
+
+        if (hid_val == 0){
+            hid1.style.display = 'block';
+        }
+        if (hid_val == 1){
+            hid2.style.display = 'block';
+        }
+        if (hid_val == 2){
+            hid3.style.display = 'block';
+        }
+        if (hid_val == 3){
+            hid4.style.display = 'block';
+            hid5.style.display = 'none';
+        }
+        var flag = false;
+
+        jQuery(function () {
+			jQuery('#hid1').change(function () {
+				this.form.submit();
+			});
+			jQuery('#hid2').change(function () {
+				this.form.submit();
+			});
+			jQuery('#hid3').change(function () {
+				this.form.submit();
+			});
+		});
+    </script>
+{% endblock %}

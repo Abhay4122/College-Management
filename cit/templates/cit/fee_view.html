@@ -1,0 +1,75 @@
+{% extends 'cit/das_basic.html' %}
+
+{% block title %}<title>View Fee Record</title> {% endblock %}
+
+{% load static %}
+
+{% block body %}
+
+	<section class="section-intro breadcrumbs-right bg-img bg47 stellar" data-stellar-background-ratio="0.4">
+	    <div class="bg-overlay gradient-1"></div>
+	    <div class="container">
+	        <div class="row">
+	            <div class="col-sm-12">
+	                <h1 class="intro-title mt50 mb40">Student Fee Record View</h1>
+	            </div>
+	        </div>
+	    </div>
+	</section>
+	<section class="section page-contact mb20">
+	    <div class="container">
+	        <div class="row col-p30">
+				{% for i in fee_detail %}
+					<div class="col-sm-10 col-md-push-1 sm-box3">
+						<div class="col-md-6">
+							<div class="col-md-12 title-small std_view">Name: <span> {{i.fee_std_nam}} </span></div>
+							<div class="col-md-12 title-small std_view">Admission Date: <span> {{i.reg_det}} </span></div>
+							<div class="col-md-12 title-small std_view">Form Number: <span> {{i.reg_frm_no}} </span></div>
+							<div class="col-md-12 title-small std_view">Father: <span> {{i.reg_fat_nam}} </span></div>
+							<div class="col-md-12 title-small std_view">Mother: <span> {{i.reg_mot_nam}} </span></div>
+							<div class="col-md-12 title-small std_view">DOB: <span> {{i.reg_dob}} </span></div>
+						</div>
+
+						<div class="col-md-6">
+							<img src="/media/{{i.reg_img}}" style="width: 200px;">
+						</div>
+						<div class="col-md-12">
+							<div class="col-md-12 title-small std_view">Address: <span> {{i.reg_location}} </span> </div>
+						</div>
+						<div class="col-md-6">
+							<div class="col-md-12 title-small std_view">Gender: <span> {{i.reg_gen}} </span> </div>
+						</div>
+						<div class="col-md-6">
+							<div class="col-md-12 title-small std_view">Category: <span> {{i.reg_cat}} </span> </div>
+						</div>
+						<div class="col-md-6">
+							<div class="col-md-12 title-small std_view">Student Number: <span> {{i.reg_mono}} </span> </div>
+						</div>
+						<div class="col-md-6">
+							<div class="col-md-12 title-small std_view">Father Number: <span> {{i.reg_fat_mono}} </span> </div>
+						</div>
+						<div class="col-md-6">
+							<div class="col-md-12 title-small std_view">Course: <span> {{i.reg_cor}} </span> </div>
+						</div>
+						<div class="col-md-6">
+							<div class="col-md-12 title-small std_view">Last Pased Class/Course: <span> {{i.reg_psd_cls}} </span> </div>
+						</div>
+						<div class="col-md-6">
+							<div class="col-md-12 title-small std_view">Passing Year: <span> {{i.reg_psd_year}} </span> </div>
+						</div>
+						<div class="col-md-6">
+							<div class="col-md-12 title-small std_view">Board/University: <span> {{i.reg_board}} </span> </div>
+						</div>
+						<div class="col-md-6">
+							<div class="col-md-12 title-small std_view">Grade/Division: <span> {{i.reg_gred}} </span> </div>
+						</div>
+						<div class="col-md-12" style="text-align: center;">
+							<a name="std_up" class="bor_btn_blk butt_on_blk" href="/cit/update_std/{{i.reg_id}}">Update Record<span></span><span></span></a>
+						</div>
+					</div>
+				{% endfor %}
+	        </div>
+	    </div>
+	</section>
+
+{% endblock %}

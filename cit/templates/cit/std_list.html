@@ -1,0 +1,137 @@
+{% extends 'cit/das_basic.html' %}
+
+{% block title %}<title>Student List</title> {% endblock %}
+
+{% load static %}
+
+{% block body %}
+
+	<section class="section-intro breadcrumbs-right bg-img bg47 stellar" data-stellar-background-ratio="0.4">
+	    <div class="bg-overlay gradient-1"></div>
+	    <div class="container">
+	        <div class="row">
+	            <div class="col-sm-12">
+	                <h1 class="intro-title mt50 mb40">Student List</h1>
+	            </div>
+	        </div>
+	    </div>
+	</section>
+	<section class="section page-contact mb20">
+        <div class="container">
+
+			<div class="col-md-12">
+				<form name="std_filter_form" method="POST" action="/cit/std_list">
+					{% csrf_token %}
+					<div class="col-md-4" id="fil_typ">
+						<select class="form-control inpt_bx_blck mb20" name="sel_filter" id="sel_filter">
+							<option value=""> --- Filter By --- </option>
+							<option value="typ_cor">Course</option>
+							<!-- <option value="typ_gen">Gender</option> -->
+							<option value="typ_nam">Name</option>
+							<!-- <option value="typ_cat">Category</option> -->
+						</select>
+					</div>
+					<div class="col-md-4" id="fil_by_cor">
+						<select class="form-control inpt_bx_blck mb20" name="std_cors" id="std_cors">
+							<option value="all"> --- Filter By Course --- </option>
+							<option value="all">All</option>
+							{% for i in all_cors %}
+								<option value="{{i.cor_nam}}">{{i.cor_nam}}</option>
+							{% endfor %}
+						</select>
+					</div>
+					<div class="col-md-4" id="fil_by_nam">
+						<input type="text" name="std_nam" class="form-control inpt_bx_blck mb20" placeholder="Enter Student Name">
+					</div>
+					<div class="col-md-2" id="fil_btn">
+						<button class="bor_btn_blk butt_on_blk">Filter<span></span><span></span></button>
+					</div>
+				</form>
+			</div>
+
+			<table class="row col-p30">
+				<table class="col-md-12">
+					<table class="table table-striped table-bordered">
+						<thead>
+							<tr>
+								<th scope="col" class="text-center">S.No.</th>
+								<th scope="col" class="text-center">Form No.</th>
+								<th scope="col" class="text-center">Name</th>
+								<th scope="col" class="text-center">Father</th>
+								<th scope="col" class="text-center">Course</th>
+								<th scope="col" class="text-center">Admission Date</th>
+								<th scope="col" class="text-center">Address</th>
+								<th scope="col" class="text-center">Contact</th>
+								<th scope="col" class="text-center">Photo</th>
+								<th scope="col" class="text-center">Delete</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for i in std %}
+								<tr>
+									<th scope="row" class="text-center">{{forloop.counter}}</th>
+									<td>{{i.reg_frm_no}}</td>
+									<td>{{i.reg_nam}}</td>
+									<td>{{i.reg_fat_nam}}</td>
+									<td>{{i.reg_cor}}</td>
+									<td>{{i.reg_det}}</td>
+									<td>{{i.reg_location|slice:'0:20'}}...</td>
+									<td>{{i.reg_mono}}</td>
+									<td class="text-center"><a href="/cit/std_view/{{i.reg_id}}"><img src="/media/{{i.reg_img}}" style="height: 50px;"></a></td>
+									<td class="text-center"><a href="/cit/del_std/{{i.reg_id}}"><i class="icon icon_close icon-simple icon-large"></i></a></td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</table>
+			</div>
+		</div>
+	</section>
+
+	<p id="flag_course" class="frm_valid_line">{{flag_course}}</p>
+
+	<script type="text/javascript">
+		
+		var get_course_flag = document.getElementById('flag_course').textContent
+        if(get_course_flag === 'True')
+        {
+            alert('Course Uploaded Successfully !!')
+            window.location.href = "/cit/cou_rse"
+        }
+
+	</script>
+
+{% endblock %}
+
+{% block js %}
+	<script>
+		document.getElementById('fil_by_cor').style.display = 'none';
+		document.getElementById('fil_by_nam').style.display = 'none';
+		document.getElementById('fil_btn').style.display = 'none';
+		var std_cors = document.getElementById('std_cors');
+		var sel_filter = document.getElementById('sel_filter');
+		
+		jQuery(function () {
+			jQuery('#sel_filter').change(function (){
+				if (sel_filter.value == 'typ_cor'){
+					document.getElementById('fil_by_cor').style.display = 'block';
+					document.getElementById('fil_by_nam').style.display = 'none';
+					document.getElementById('fil_btn').style.display = 'none';
+				}
+				else if (sel_filter.value == 'typ_nam'){
+					document.getElementById('fil_by_cor').style.display = 'none';
+					document.getElementById('fil_by_nam').style.display = 'block';
+					document.getElementById('fil_btn').style.display = 'block';
+				}
+			});
+			jQuery('#std_cors').change(function () {
+				if (std_cors.value == 'all'){
+					document.location = '/cit/std_list'
+				}
+				else{
+					this.form.submit();
+				}
+			});
+		});
+	</script>
+{% endblock %}

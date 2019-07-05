@@ -1,0 +1,91 @@
+{% extends 'cit/das_basic.html' %}
+
+{% block title %}<title>Fee List</title> {% endblock %}
+
+{% load static %}
+
+{% block body %}
+
+	<section class="section-intro breadcrumbs-right bg-img bg47 stellar" data-stellar-background-ratio="0.4">
+	    <div class="bg-overlay gradient-1"></div>
+	    <div class="container">
+	        <div class="row">
+	            <div class="col-sm-12">
+	                <h1 class="intro-title mt50 mb40">Student Fee Record List</h1>
+	            </div>
+	        </div>
+	    </div>
+	</section>
+	<section class="section page-contact mb20">
+        <div class="container">
+			<table class="row col-p30">
+				<table class="col-md-12">
+					<table class="table table-striped table-bordered">
+						<thead>
+							<tr>
+								<th scope="col" class="text-center">S.No.</th>
+								<th scope="col" class="text-center">Name</th>
+								<th scope="col" class="text-center">Father</th>
+								<th scope="col" class="text-center">Course</th>
+								<th scope="col" class="text-center">Jan</th>
+								<th scope="col" class="text-center">Feb</th>
+								<th scope="col" class="text-center">Mar</th>
+								<th scope="col" class="text-center">Apr</th>
+								<th scope="col" class="text-center">May</th>
+								<th scope="col" class="text-center">Jun</th>
+								<th scope="col" class="text-center">Jul</th>
+								<th scope="col" class="text-center">Aug</th>
+								<th scope="col" class="text-center">Sep</th>
+								<th scope="col" class="text-center">Oct</th>
+								<th scope="col" class="text-center">Nov</th>
+								<th scope="col" class="text-center">Dec</th>
+								<th scope="col" class="text-center">Total</th>
+								<th scope="col" class="text-center">Due</th>
+								<th scope="col" class="text-center">View</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for i in all_fee %}
+								<tr>
+									<th scope="row" class="text-center">{{forloop.counter}}</th>
+									<td>{{i.fee_std_nam}}</td>
+									<td>{{i.fee_fat_nam}}</td>
+									<td>{{i.fee_cors}}</td>
+									<td>{{i.jan_fee}}</td>
+									<td>{{i.feb_fee}}</td>
+									<td>{{i.mar_fee}}</td>
+									<td>{{i.apr_fee}}</td>
+									<td>{{i.may_fee}}</td>
+									<td>{{i.jun_fee}}</td>
+									<td>{{i.jul_fee}}</td>
+									<td>{{i.aug_fee}}</td>
+									<td>{{i.sep_fee}}</td>
+									<td>{{i.oct_fee}}</td>
+									<td>{{i.nov_fee}}</td>
+									<td>{{i.dec_fee}}</td>
+									<td>{{i.total_fee}}</td>
+									<td>{{i.due_fee}}</td>
+									<td class="text-center"><a href="/cit/fee_view/{{i.fee_id}}"><i class="icon icon-simple icon-large icon_error-circle_alt"></i></a></td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</table>
+			</div>
+		</div>
+	</section>
+
+	<p id="flag_course" class="frm_valid_line">{{flag_course}}</p>
+
+	<script type="text/javascript">
+		
+		var get_course_flag = document.getElementById('flag_course').textContent
+        if(get_course_flag === 'True')
+        {
+            alert('Course Uploaded Successfully !!')
+            window.location.href = "/cit/cou_rse"
+        }
+
+	</script>
+
+{% endblock %}
