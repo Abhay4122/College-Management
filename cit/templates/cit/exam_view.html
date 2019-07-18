@@ -1,23 +1,4 @@
-{% extends 'cit/das_basic.html' %}
 
-{% block title %}<title>Result Detail</title> {% endblock %}
-
-{% load static %}
-
-{% block body %}
-
-	<section class="section-intro breadcrumbs-right bg-img bg47 stellar" data-stellar-background-ratio="0.4">
-	    <div class="bg-overlay gradient-1"></div>
-	    <div class="container">
-	        <div class="row">
-	            <div class="col-sm-12">
-	                <h1 class="intro-title mt50 mb40">Student Exam Result View</h1>
-	            </div>
-	        </div>
-	    </div>
-	</section>
-	<section class="section page-contact mb20">
-	    <div class="container">
 	        <div class="row col-p30">
 				{% for i in exm_detail %}
 					<div class="col-sm-10 col-md-push-1 sm-box3">
@@ -58,12 +39,17 @@
 							<div class="col-md-12 title-small std_view">Total Marks: <span> {{i.exm_total}} </span> </div>
 						</div>
 						<div class="col-md-12" style="text-align: center;">
-							<a name="std_up" class="bor_btn_blk butt_on_blk" href="/cit/update_marks/{{i.exm_id}}">Update Record<span></span><span></span></a>
+							<a name="std_up" class="bor_btn_blk butt_on_blk" href="#" onclick="upd_mark({{i.exm_id}})">Update Record<span></span><span></span></a>
 						</div>
 					</div>
 				{% endfor %}
-	        </div>
-	    </div>
-	</section>
-
+			</div>
+			
+{% block js %}
+	<script>
+		function upd_mark(std_id){
+			$('#admin_heading').text('Edit Student Exam Record');
+			$('#main_place').load('/cit/update_marks/' + std_id);
+		}
+	</script>
 {% endblock %}

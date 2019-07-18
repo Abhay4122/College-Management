@@ -19,82 +19,93 @@
 <body>
 
 	<div id="wrapper" class="animsition">
-	    <div class="header-transparent menu-fixed-dark menu-dark-mobiles menu-dark">
-	        <header class="header-wrapper">
-	            <div class="main-header">
-	                <div class="container">
-	                    <div class="row">
-	                        <div class="col-sm-12">
-	                            <div class="menu-wrapper">
-	                                <div class="logo-wrapper">
-	                                    <a href="/cit/dashboard" class="logo">
-	                                        <img src="{% static 'cit/images/logo.png' %}" class="logo-img logo-dark" alt="Logo">
-	                                        <img src="{% static 'cit/images/logo.png' %}" class="logo-img logo-light" alt="Logo">
-	                                    </a>
-	                                </div>
-	                                <nav class="navbar-right">
-	                                    <ul class="menu">
-
-	                                        <li class="toggle-menu"><i class="icon icon_menu"></i></li>
-	                                        <li><a href="/cit/dashboard" class="bor_btn">Dashboard<span></span><span></span></a></li>
-	                                        <li><a href="/cit/cou_rse" class="bor_btn">Course<span></span><span></span></a></li>
-	                                        <li>
-	                                            <a href="#" class="bor_btn">Student<span></span><span></span></a>
-	                                            <ul class="submenu">
-	                                                <li><a href="/cit/std_reg">Registration</a></li>
-	                                                <li><a href="/cit/std_list">Student List</a></li>
-	                                            </ul>
-	                                        </li>
-	                                        <!-- <li>
-	                                            <a href="#" class="bor_btn">Attendance<span></span><span></span></a>
-	                                            <ul class="submenu">
-	                                                <li><a href="attend.php">Today's Attendance</a></li>
-	                                                <li><a href="attend_rec.php">Attendance Record</a></li>
-	                                            </ul>
-	                                        </li> -->
-	                                        <li>
-	                                            <a href="#" class="bor_btn">Exam<span></span><span></span></a>
-	                                            <ul class="submenu">
-	                                                <li><a href="/cit/add_marks">Exam Marks</a></li>
-	                                                <li><a href="/cit/result_list">Result List</a></li>
-	                                                <!-- <li><a href="/cit/view_cretificate">Certificate</a></li> -->
-	                                            </ul>
-	                                        </li>
-	                                        <li>
-	                                            <a href="#" class="bor_btn">Fees<span></span><span></span></a>
-	                                            <ul class="submenu">
-	                                                <li><a href="/cit/add_fee">Submit Fee</a></li>
-	                                                <li><a href="/cit/fee_list">Fees Record</a></li>
-	                                            </ul>
-	                                        </li>
-	                                        <li>
-	                                            <a href="/cit/usr_logout" class="bor_btn">Log Out<span></span><span></span></a>
-	                                            <!-- <form method="POST">
-	                                                <button href="#" name="log_out" class="bor_btn log_out_btn">Logout<span></span><span></span></button>
-	                                            </form> -->
-	                                        </li>
-	                                    </ul>
-	                                </nav>
-	                            </div>
-	                        </div>
-	                    </div>
-	                </div>
-	            </div>
-	        </header>
-	    </div>
-
-	    {% block body %} {% endblock %}
-
+		<div class="header-transparent menu-fixed-dark menu-dark-mobiles menu-dark">
+			<header class="header-wrapper">
+				<div class="main-header">
+					<div class="container">
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="menu-wrapper">
+									<div class="logo-wrapper">
+										<a href="/cit/admin" class="logo">
+											<img src="{% static 'cit/images/logo.png' %}" class="logo-img logo-dark" alt="Logo">
+											<img src="{% static 'cit/images/logo.png' %}" class="logo-img logo-light" alt="Logo">
+										</a>
+									</div>
+									<nav class="navbar-right">
+										<ul class="menu">
+	
+											<li class="toggle-menu"><i class="icon icon_menu"></i></li>
+											<li><a href="#" class="bor_btn" onclick="dashboard()">Dashboard<span></span><span></span></a></li>
+											<li><a href="#" class="bor_btn" onclick="course()">Course<span></span><span></span></a>
+											</li>
+											<li>
+												<a href="#" class="bor_btn">Student<span></span><span></span></a>
+												<ul class="submenu">
+													<li><a href="#" onclick="std_reg()">Registration</a></li>
+													<li><a href="#" onclick="std_lis()">Student List</a></li>
+												</ul>
+											</li>
+											<!-- <li>
+		                                            <a href="#" class="bor_btn">Attendance<span></span><span></span></a>
+		                                            <ul class="submenu">
+		                                                <li><a href="attend.php">Today's Attendance</a></li>
+		                                                <li><a href="attend_rec.php">Attendance Record</a></li>
+		                                            </ul>
+		                                        </li> -->
+											<li>
+												<a href="#" class="bor_btn">Exam<span></span><span></span></a>
+												<ul class="submenu">
+													<li><a href="#" onclick="exm_mark()">Exam Marks</a></li>
+													<li><a href="#" onclick="result_lis()">Result List</a></li>
+													<!-- <li><a href="/cit/view_cretificate">Certificate</a></li> -->
+												</ul>
+											</li>
+											<li>
+												<a href="#" class="bor_btn">Fees<span></span><span></span></a>
+												<ul class="submenu">
+													<li><a href="#" onclick="sub_fee()">Submit Fee</a></li>
+													<li><a href="#" onclick="fee_lis()">Fees Record</a></li>
+												</ul>
+											</li>
+											<li>
+												<a href="/cit/usr_logout" class="bor_btn">Log Out<span></span><span></span></a>
+												<!-- <form method="POST">
+		                                                <button href="#" name="log_out" class="bor_btn log_out_btn">Logout<span></span><span></span></button>
+		                                            </form> -->
+											</li>
+										</ul>
+									</nav>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</header>
+		</div>
+	
+		<section class="section-intro breadcrumbs-right bg-img bg47 stellar" data-stellar-background-ratio="0.4" style="padding: 42px 0;">
+			<div class="bg-overlay gradient-1"></div>
+		</section>
+		<section class="section page-contact mb20">
+			<div class="row">
+				<div class="col-sm-12">
+					<h1 class="intro-title" id="admin_heading" style="color: #000;"></h1>
+					<div class="br-bottom-center mb40"></div>
+				</div>
+			</div>
+			<div class="container" id="main_place">
+				
+			</div>
+		</section>
+	
 	</div>
 
     <p id="flag_std_reg" class="frm_valid_line">{{flag_std_reg}}</p>
 	<p id="login_success" class="frm_valid_line">{{login_success}}</p>
-	<p id="flag_course" class="frm_valid_line">{{flag_course}}</p>
 	<p id="flag_marks" class="frm_valid_line">{{flag_marks}}</p>
 	<p id="std_update_success" class="frm_valid_line">{{std_update_success}}</p>
 	<p id="std_del_success" class="frm_valid_line">{{std_del_success}}</p>
-	<p id="cors_del_success" class="frm_valid_line">{{cors_del_success}}</p>
-	<p id="cors_update_success" class="frm_valid_line">{{cors_update_success}}</p>
 	<p id="exm_add_success" class="frm_valid_line">{{exm_add_success}}</p>
 	<p id="exm_upd_success" class="frm_valid_line">{{exm_upd_success}}</p>
 	<p id="fee_add_success" class="frm_valid_line">{{fee_add_success}}</p>
@@ -111,6 +122,148 @@
 	<script src="{% static 'cit/libs/particles/app.js' %}"></script>
 
 	<script>
+		
+		$(document).ready(function(){
+			$('#admin_heading').text('Dashboard');
+			$('#main_place').load('/cit/dashboard');
+		});
+		// Dashboard
+		function dashboard(){
+			$('#admin_heading').text('Dashboard');
+			$('#main_place').load('/cit/dashboard');
+		}
+		// Course
+		function course(){
+			$('#admin_heading').text('Course Detail');
+			$('#main_place').load('/cit/cou_rse');
+		}
+		// Add Student
+		function std_reg(){
+			$('#admin_heading').text('Add Student');
+			$('#main_place').load('/cit/std_reg');
+		}
+		// Student List
+		function std_lis(){
+			$('#admin_heading').text('Student List');
+			$('#main_place').load('/cit/std_list');
+		}
+		// Add Exam Marks
+		function exm_mark(){
+			$('#admin_heading').text('Add Exam Marks');
+			$('#main_place').load('/cit/add_marks');
+		}
+		// Result List
+		function result_lis(){
+			$('#admin_heading').text('Student Result List');
+			$('#main_place').load('/cit/result_list');
+		}
+		// Add Student Fee
+		function sub_fee(){
+			$('#admin_heading').text('Add Student Fee');
+			$('#main_place').load('/cit/add_fee');
+		}
+		// Fee List
+		function fee_lis(){
+			$('#admin_heading').text('Student Fee List');
+			$('#main_place').load('/cit/fee_list');
+		}
+		// Enquery List
+		function enq_list(){
+			$('#admin_heading').text('Student Enquery List');
+			$('#main_place').load('/cit/enqu');
+		}
+
+		// Course Add View Edit Delite Script
+
+		function del_cor(cor_id){
+			var confir = confirm('Do you want to delete Course with id = '+ cor_id +' Record ??');
+			if (confir == true){
+				var req = new XMLHttpRequest();
+				req.open('GET', '/cit/del_cors/' + cor_id, true);
+				req.send();
+				req.onreadystatechange = function(){
+					if(req.readyState == 4 && req.status == 200){
+						$('#main_place').load('/cit/cou_rse');
+					}
+				}
+			}
+		}
+		
+		$(document).on('submit', '#add_cor_frm', function(e){
+            e.preventDefault();
+			$.ajax({
+				url:"/cit/add_course",
+				method:"POST",
+				data:new FormData(this),
+				contentType:false,
+				processData:false,
+				success: function (response) {
+					alert('Course '+ $('#cor_nam').val() +' Added Successfully !!');
+					$('#main_place').load('/cit/cou_rse');
+				},
+				error: function (data) {
+					alert('Course '+ $('#cor_nam').val() +' Already Exist !!');
+				}
+			});
+            // $.post('/cit/add_course', {
+            //         cor_hid:$('#cor_hid').val(),
+            //         cor_cat:$('#cor_cat').val(),
+            //         cor_nam:$('#cor_nam').val(),
+            //         cor_ful_frm:$('#cor_ful_frm').val(),
+            //         cor_dur:$('#cor_dur').val(),
+            //         cor_dit:$('#cor_dit').val(),
+            //         cor_pak:$('#cor_pak').val(),
+            //         cor_syllabus:$('#cor_syllabus').val(),
+            //         csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+            //     }, function(data, status){
+			// 		$('#lod_cors').load('/cit/cors_list');
+			// 		al_ert.style.display = 'block';
+			// 		al_ert.innerHTML = 'Course '+ $('#cor_nam').val() +' Added Successfully !!';
+            // });
+        });
+
+		function upd_cor(cor_id){
+			$('#admin_heading').text('Update Course Details');
+			$('#upd_cors').load('/cit/update_cors/' + cor_id);
+		}
+		$(document).on('submit', '#upd_cor_frm', function(e){
+            e.preventDefault();
+			$.ajax({
+				url:"/cit/add_course",
+				method:"POST",
+				data:new FormData(this),
+				contentType:false,
+				processData:false,
+				success: function (response) {
+					alert('Course '+ $('#cor_nam').val() +' Updated Successfully !!');
+					$('#admin_heading').text('Add Course');
+					$('#main_place').load('/cit/cou_rse');
+				},
+				error: function (data) {
+					alert('Some Error Occured Please Try Again !!');
+				}
+			});
+		});
+		
+		// Student Add Script
+
+		$(document).on('submit', '#std_reg_frm', function(e){
+			e.preventDefault();
+			$.ajax({
+				url: '/cit/add_std',
+				method: 'POST',
+				data: new FormData(this),
+				contentType:false,
+				processData:false,
+				success: function (response) {
+					alert('Student '+ $('#std_nam').val() +' Successfully Registerd !!');
+				},
+				error: function (data) {
+					alert('Student '+ $('#std_nam').val() +' Alredy Exist !!');
+				}
+			});
+		});
+		
 		var get_std_reg = document.getElementById('flag_std_reg').textContent
         if(get_std_reg === 'True')
         {
@@ -122,14 +275,7 @@
         if(get_login_success === 'True')
         {
             alert('Welcome {{user_info.first_name}}' + ' ' + '{{user_info.last_name}}');
-            window.location.href = "/cit/dashboard";
-        }
-
-		var get_course_flag = document.getElementById('flag_course').textContent
-        if(get_course_flag === 'True')
-        {
-            alert('Course Uploaded Successfully !!')
-            window.location.href = "/cit/cou_rse"
+            window.location.href = "/cit/admin";
         }
 
 		var get_flag_marks = document.getElementById('flag_marks').textContent
@@ -151,20 +297,6 @@
         {
             alert('Student Details Deleted Successfully !!')
             window.location.href = "/cit/std_list"
-        }
-
-		var get_cors_del_success = document.getElementById('cors_del_success').textContent
-        if(get_cors_del_success === 'True')
-        {
-            alert('Course Details Deleted Successfully !!')
-            window.location.href = "/cit/cou_rse"
-        }
-
-		var get_cors_update_success = document.getElementById('cors_update_success').textContent
-        if(get_cors_update_success === 'True')
-        {
-            alert('Course Details Updated Successfully !!')
-            window.location.href = "/cit/cou_rse"
         }
 
 		var get_exm_add_success = document.getElementById('exm_add_success').textContent

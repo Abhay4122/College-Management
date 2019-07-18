@@ -1,5 +1,5 @@
 from django.shortcuts import render
-# from django.http import HttpRequest
+from django.http import HttpResponse
 from django.contrib.auth.models import User
 from .models import inquery, course, std_registration, std_exm_marks, std_fee
 from django.contrib.auth import authenticate, login, logout
@@ -52,7 +52,7 @@ def usr_login(request):
     if user:
         request.session['cit_user'] = login_usr
         user_nam = User.objects.filter(username=login_usr)
-        return render(request, 'cit/dashboard.html', {'login_success' : True, 'user_info' : user_nam[0]})
+        return render(request, 'cit/das_basic.html', {'login_success' : True, 'user_info' : user_nam[0]})
     else:
         return render(request, 'cit/index.html', {'login_feliour' : False})
 
@@ -71,6 +71,13 @@ def dashboard(request):
         return render(request, 'cit/index.html', {'login_redirect' : False})
 
 
+def admin(request):
+    if request.session.has_key('cit_user'):
+        return render(request, 'cit/das_basic.html')
+    else:
+        return render(request, 'cit/index.html', {'login_redirect' : False})
+
+
 def enqu(request):
     if request.session.has_key('cit_user'):
         all_inq = inquery.objects.all()
@@ -81,8 +88,12 @@ def enqu(request):
 
 def cou_rse(request):
     if request.session.has_key('cit_user'):
-        all_cors = course.objects.all()
-        # print(type(all_cor))    #<class 'django.db.models.query.QuerySet'>
+        # cor_namex = course.objects.filter(cor_nam='CCC')
+        # if str(cor_namex[0]).lower() == 'ccc':
+        #     print('Exist', cor_namex[0], type(cor_namex[0]))
+        # else:
+        #     print('Not Exist', cor_namex[0], type(cor_namex[0]))
+        all_cors = course.objects.all().order_by('-cor_id')
         return render(request, 'cit/course.html', {'course' : all_cors})
     else:
         return render(request, 'cit/index.html', {'login_redirect' : False})
@@ -98,13 +109,17 @@ def add_course(request):
     cor_pak = request.POST.get('cor_pak', '')
     cor_syllabus = request.FILES.get('cor_syllabus', '')
     if save_type == 'add':
-        course.objects.get_or_create(cor_cat=cor_cat, cor_nam=cor_nam, cor_ful_form=cor_ful_frm, cor_dur=cor_dur, cor_pak=cor_pak, cor_detail=cor_dit, cor_syllabus=cor_syllabus)
-        # corse.save()
-        return render(request, 'cit/course.html', {'flag_course' : True})
+        cor_namex = course.objects.filter(cor_nam=cor_nam)
+        print(cor_namex[0])
+        if str(cor_namex[0]).lower() == cor_nam.lower():
+            pass
+        else:
+            course.objects.get_or_create(cor_cat=cor_cat, cor_nam=cor_nam, cor_ful_form=cor_ful_frm, cor_dur=cor_dur, cor_pak=cor_pak, cor_detail=cor_dit, cor_syllabus=cor_syllabus)
+            return render(request, 'cit/course.html')
     elif save_type == 'upd':
         cors_id = request.POST.get('cor_id')
         course.objects.filter(cor_id=cors_id).update(cor_cat=cor_cat, cor_nam=cor_nam, cor_ful_form=cor_ful_frm, cor_dur=cor_dur, cor_pak=cor_pak, cor_detail=cor_dit)
-        return render(request, 'cit/course.html', {'cors_update_success' : True})
+        return render(request, 'cit/course.html')#, {'cors_update_success' : True})
 
 
 def update_cors(request, cors_id):
@@ -117,7 +132,7 @@ def update_cors(request, cors_id):
 
 def del_cors(request, cors_id):
     course.objects.filter(cor_id=cors_id).delete()
-    return render(request, 'cit/std_list.html/', {'cors_del_success' : True})
+    return render(request, 'cit/std_list.html/')#, {'cors_del_success' : True})
 
 
 def std_reg(request):
@@ -148,9 +163,14 @@ def add_std(request):
     std_img = request.FILES.get('std_img', '')
     # std_reg_det = request.POST.get('std_dob', '')
     if save_type == 'add':
-        reg_std = std_registration(reg_frm_no=std_frm_no, reg_nam=std_nam, reg_gen=std_gender, reg_fat_nam=std_fat_nam, reg_mot_nam=std_mot_nam, reg_dob=std_dob, reg_location=std_location, reg_mono=std_mono, reg_fat_mono=std_fat_mono, reg_cat=std_category, reg_cor=std_course, reg_psd_cls=std_lst_psd_cls, reg_psd_year=std_psd_year, reg_board=std_board, reg_gred=std_gred, reg_img=std_img, reg_det=date.today())
-        reg_std.save()
-        return render(request, 'cit/std_reg.html', {'flag_std_reg' : True})
+        std_namex = std_registration.objects.filter(reg_nam=std_nam)
+        # if std_registration.objects.filter(reg_nam=std_nam).exists() == True:
+        if str(std_namex[0]).lower() != std_nam.lower():
+            pass
+        else:
+            reg_std = std_registration(reg_frm_no=std_frm_no, reg_nam=std_nam, reg_gen=std_gender, reg_fat_nam=std_fat_nam, reg_mot_nam=std_mot_nam, reg_dob=std_dob, reg_location=std_location, reg_mono=std_mono, reg_fat_mono=std_fat_mono, reg_cat=std_category, reg_cor=std_course, reg_psd_cls=std_lst_psd_cls, reg_psd_year=std_psd_year, reg_board=std_board, reg_gred=std_gred, reg_img=std_img, reg_det=date.today())
+            reg_std.save()
+            return render(request, 'cit/std_reg.html')#, {'flag_std_reg' : True})
     else:
         std_id = request.POST.get('std_id')
         std_registration.objects.filter(reg_id=std_id).update(reg_frm_no=std_frm_no, reg_nam=std_nam, reg_gen=std_gender, reg_fat_nam=std_fat_nam, reg_mot_nam=std_mot_nam, reg_location=std_location, reg_mono=std_mono, reg_fat_mono=std_fat_mono, reg_cat=std_category, reg_cor=std_course, reg_psd_cls=std_lst_psd_cls, reg_psd_year=std_psd_year, reg_board=std_board, reg_gred=std_gred)
@@ -424,3 +444,13 @@ def fee_view(request, fee_id):
 def usr_logout(request):
     logout(request)
     return render(request, 'cit/index.html', {'logout_success' : True})
+
+
+def check(request):
+    return render(request, 'cit/check.html')
+
+def check2(request):
+    name = request.POST.get('name', '')
+    email = request.POST.get('email', '')
+    passw = request.POST.get('pass', '')
+    return render(request, 'cit/check2.html', {'name' : name, 'email' : email, 'pass' : passw})

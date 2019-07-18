@@ -9,6 +9,7 @@ urlpatterns = [
     path('usr_inq', views.usr_inq, name='usr_inq'),
     path('usr_login', views.usr_login, name='usr_login'),
     path('dashboard', views.dashboard, name='dashboard'),
+    path('admin', views.admin, name='admin'),
     path('enqu', views.enqu, name='enqu'),
     path('cou_rse', views.cou_rse, name='cou_rse'),
     path('add_course', views.add_course, name='add_course'),
@@ -31,4 +32,6 @@ urlpatterns = [
     path('fee_list', views.fee_list, name='fee_list'),
     path('fee_view/<int:fee_id>', views.fee_view, name='fee_view'),
     path('usr_logout', views.usr_logout, name='usr_logout'),
+    path('check', views.check, name='check'),
+    path('check2', views.check2, name='check2'),
 ]

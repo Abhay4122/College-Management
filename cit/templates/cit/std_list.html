@@ -1,23 +1,3 @@
-{% extends 'cit/das_basic.html' %}
-
-{% block title %}<title>Student List</title> {% endblock %}
-
-{% load static %}
-
-{% block body %}
-
-	<section class="section-intro breadcrumbs-right bg-img bg47 stellar" data-stellar-background-ratio="0.4">
-	    <div class="bg-overlay gradient-1"></div>
-	    <div class="container">
-	        <div class="row">
-	            <div class="col-sm-12">
-	                <h1 class="intro-title mt50 mb40">Student List</h1>
-	            </div>
-	        </div>
-	    </div>
-	</section>
-	<section class="section page-contact mb20">
-        <div class="container">
 
 			<div class="col-md-12">
 				<form name="std_filter_form" method="POST" action="/cit/std_list">
@@ -77,7 +57,7 @@
 									<td>{{i.reg_det}}</td>
 									<td>{{i.reg_location|slice:'0:20'}}...</td>
 									<td>{{i.reg_mono}}</td>
-									<td class="text-center"><a href="/cit/std_view/{{i.reg_id}}"><img src="/media/{{i.reg_img}}" style="height: 50px;"></a></td>
+									<td class="text-center"><a href="#" onclick="std_view({{i.reg_id}})"><img src="/media/{{i.reg_img}}" style="height: 50px;"></a></td>
 									<td class="text-center"><a href="/cit/del_std/{{i.reg_id}}"><i class="icon icon_close icon-simple icon-large"></i></a></td>
 								</tr>
 							{% endfor %}
@@ -85,23 +65,6 @@
 					</table>
 				</table>
 			</div>
-		</div>
-	</section>
-
-	<p id="flag_course" class="frm_valid_line">{{flag_course}}</p>
-
-	<script type="text/javascript">
-		
-		var get_course_flag = document.getElementById('flag_course').textContent
-        if(get_course_flag === 'True')
-        {
-            alert('Course Uploaded Successfully !!')
-            window.location.href = "/cit/cou_rse"
-        }
-
-	</script>
-
-{% endblock %}
 
 {% block js %}
 	<script>
@@ -133,5 +96,10 @@
 				}
 			});
 		});
+
+		function std_view(std_id){
+			$('#admin_heading').text('Edit Student Record');
+			$('#main_place').load('/cit/std_view/' + std_id);
+		}
 	</script>
 {% endblock %}
