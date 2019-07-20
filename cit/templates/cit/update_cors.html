@@ -7,7 +7,7 @@
                             <input type="hidden" name="cor_id" value="{{i.cor_id}}" />
                             <div class="col-md-6">
                                 <select class="form-control inpt_bx_blck mb20" name="cor_cat">
-                                    <option value="{{i.cor_cat}}"> {{i.cor_cat}} </option>
+                                    <option value="{{i.cor_cat}}"> {{i.cor_cat|title}} </option>
                                     <option value="Diploma Course"> Diploma Course </option>
                                     <option value="Tution Course"> Tution Course </option>
                                     <option value="Distance Course"> Distance Course </option>
@@ -15,10 +15,10 @@
                                 </select>
                             </div>
                             <div class="col-md-6">
-                                <input type="text" name="cor_nam" id="cor_nam" class="form-control inpt_bx_blck mb20" value="{{i.cor_nam}}" />
+                                <input type="text" name="cor_nam" id="cor_nam" class="form-control inpt_bx_blck mb20" value="{{i.cor_nam|title}}" />
                             </div>
                             <div class="col-md-6">
-                                <input type="text" name="cor_ful_frm" class="form-control inpt_bx_blck mb20" value="{{i.cor_ful_form}}" />
+                                <input type="text" name="cor_ful_frm" class="form-control inpt_bx_blck mb20" value="{{i.cor_ful_form|title}}" />
                             </div>
                             <div class="col-md-6">
                                 <input type="text" name="cor_dur" class="form-control inpt_bx_blck mb20" value="{{i.cor_dur}}" />

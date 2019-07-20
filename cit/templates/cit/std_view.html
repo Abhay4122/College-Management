@@ -3,11 +3,11 @@
 				{% for i in std_detail %}
 					<div class="col-sm-10 col-md-push-1 sm-box3">
 						<div class="col-md-6">
-							<div class="col-md-12 title-small std_view">Name: <span> {{i.reg_nam}} </span></div>
+							<div class="col-md-12 title-small std_view">Name: <span> {{i.reg_nam|title}} </span></div>
 							<div class="col-md-12 title-small std_view">Admission Date: <span> {{i.reg_det}} </span></div>
 							<div class="col-md-12 title-small std_view">Form Number: <span> {{i.reg_frm_no}} </span></div>
-							<div class="col-md-12 title-small std_view">Father: <span> {{i.reg_fat_nam}} </span></div>
-							<div class="col-md-12 title-small std_view">Mother: <span> {{i.reg_mot_nam}} </span></div>
+							<div class="col-md-12 title-small std_view">Father: <span> {{i.reg_fat_nam|title}} </span></div>
+							<div class="col-md-12 title-small std_view">Mother: <span> {{i.reg_mot_nam|title}} </span></div>
 							<div class="col-md-12 title-small std_view">DOB: <span> {{i.reg_dob}} </span></div>
 						</div>
 
@@ -18,10 +18,10 @@
 							<div class="col-md-12 title-small std_view">Address: <span> {{i.reg_location}} </span> </div>
 						</div>
 						<div class="col-md-6">
-							<div class="col-md-12 title-small std_view">Gender: <span> {{i.reg_gen}} </span> </div>
+							<div class="col-md-12 title-small std_view">Gender: <span> {{i.reg_gen|title}} </span> </div>
 						</div>
 						<div class="col-md-6">
-							<div class="col-md-12 title-small std_view">Category: <span> {{i.reg_cat}} </span> </div>
+							<div class="col-md-12 title-small std_view">Category: <span> {{i.reg_cat|title}} </span> </div>
 						</div>
 						<div class="col-md-6">
 							<div class="col-md-12 title-small std_view">Student Number: <span> {{i.reg_mono}} </span> </div>
@@ -30,7 +30,7 @@
 							<div class="col-md-12 title-small std_view">Father Number: <span> {{i.reg_fat_mono}} </span> </div>
 						</div>
 						<div class="col-md-6">
-							<div class="col-md-12 title-small std_view">Course: <span> {{i.reg_cor}} </span> </div>
+							<div class="col-md-12 title-small std_view">Course: <span> {{i.reg_cor|title}} </span> </div>
 						</div>
 						<div class="col-md-6">
 							<div class="col-md-12 title-small std_view">Last Pased Class/Course: <span> {{i.reg_psd_cls}} </span> </div>
@@ -50,14 +50,3 @@
 					</div>
 				{% endfor %}
 			</div>
-			
-{% block js %}
-
-	<script>
-		function upd_std(std_id){
-			$('#admin_heading').text('Edit Student Record');
-			$('#main_place').load('/cit/update_std/' + std_id);
-		}
-	</script>
-
-{% endblock %}

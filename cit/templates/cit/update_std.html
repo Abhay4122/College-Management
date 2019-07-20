@@ -2,7 +2,7 @@
 	        <div class="row col-p30">
 	            <div class="col-md-8 col-md-push-2 sm-box3">
                     {% for i in std_detail %}
-                        <form name="std_reg_frm_update" method="POST"  enctype="multipart/form-data" action="/cit/add_std">
+                        <form id="std_reg_frm_update">
                             {% csrf_token %}
                             <input type="hidden" name="std_hid" value="upd" />
                             <input type="hidden" name="std_id" value="{{i.reg_id}}" />
@@ -10,21 +10,21 @@
                                 <input type="text" name="std_form_num" class="form-control inpt_bx_blck mb20" value="{{i.reg_frm_no}}" />
                             </div>
                             <div class="col-md-6">
-                                <input type="text" name="std_nam" class="form-control inpt_bx_blck mb20" value="{{i.reg_nam}}" />
+                                <input type="text" name="std_nam" id="std_nam" class="form-control inpt_bx_blck mb20" value="{{i.reg_nam|title}}" />
                             </div>
                             <div class="col-md-6">
                                 <select class="form-control inpt_bx_blck mb20" name="std_gen">
-                                    <option vlaue="{{i.reg_gen}}"> {{i.reg_gen}} </option>
+                                    <option vlaue="{{i.reg_gen}}"> {{i.reg_gen|title}} </option>
                                     <option value="Male"> Male </option>
                                     <option value="Female"> Female </option>
                                     <option value="Other"> Other </option>
                                 </select>
                             </div>
                             <div class="col-md-6">
-                                <input type="text" name="std_fat_nam" class="form-control inpt_bx_blck mb20" value="{{i.reg_fat_nam}}" />
+                                <input type="text" name="std_fat_nam" class="form-control inpt_bx_blck mb20" value="{{i.reg_fat_nam|title}}" />
                             </div>
                             <div class="col-md-6">
-                                <input type="text" name="std_mot_nam" class="form-control inpt_bx_blck mb20" value="{{i.reg_mot_nam}}" />
+                                <input type="text" name="std_mot_nam" class="form-control inpt_bx_blck mb20" value="{{i.reg_mot_nam|title}}" />
                             </div>
                             <div class="col-md-6">
                                 <input type="text" name="std_dob" class="form-control inpt_bx_blck mb20" value="{{i.reg_dob}}" onfocus="(this.type='date')" />
@@ -40,7 +40,7 @@
                             </div>
                             <div class="col-md-6">
                                 <select class="form-control inpt_bx_blck mb20" name="std_cat">
-                                    <option value="{{i.reg_cat}}"> {{i.reg_cat}} </option>
+                                    <option value="{{i.reg_cat}}"> {{i.reg_cat|title}} </option>
                                     <option value="SC"> SC </option>
                                     <option value="ST"> ST </option>
                                     <option value="OBC"> OBC </option>
@@ -50,9 +50,9 @@
                             </div>
                             <div class="col-md-6">
                                 <select class="form-control inpt_bx_blck mb20" name="std_cor">
-                                    <option value="{{i.reg_cor}}"> {{i.reg_cor}} </option>
+                                    <option value="{{i.reg_cor}}"> {{i.reg_cor|title}} </option>
                                     {% for i in all_cors %}
-                                        <option value="{{i.cor_nam}}">{{i.cor_nam}}</option>
+                                        <option value="{{i.cor_nam}}">{{i.cor_nam|title}}</option>
                                     {% endfor %}
                                 </select>
                             </div>
@@ -72,7 +72,7 @@
                                 <input type="text" name="std_img" class="form-control inpt_bx_blck mb20" value="{{i.reg_img}}" onfocus="(this.type='file')" />
                             </div>
                             <div class="col-md-12" style="text-align: center;">
-                                <button id="cor_sub" class="bor_btn_blk butt_on_blk">Update<span></span><span></span></button>
+                                <button class="bor_btn_blk butt_on_blk">Update<span></span><span></span></button>
                             </div>
                         </form>
                     {% endfor %}

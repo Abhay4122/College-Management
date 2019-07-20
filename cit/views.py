@@ -88,11 +88,6 @@ def enqu(request):
 
 def cou_rse(request):
     if request.session.has_key('cit_user'):
-        # cor_namex = course.objects.filter(cor_nam='CCC')
-        # if str(cor_namex[0]).lower() == 'ccc':
-        #     print('Exist', cor_namex[0], type(cor_namex[0]))
-        # else:
-        #     print('Not Exist', cor_namex[0], type(cor_namex[0]))
         all_cors = course.objects.all().order_by('-cor_id')
         return render(request, 'cit/course.html', {'course' : all_cors})
     else:
@@ -101,17 +96,15 @@ def cou_rse(request):
 
 def add_course(request):
     save_type = request.POST.get('cor_hid')
-    cor_cat = request.POST.get('cor_cat', '')
-    cor_nam = request.POST.get('cor_nam', '')
-    cor_ful_frm = request.POST.get('cor_ful_frm', '')
+    cor_cat = request.POST.get('cor_cat', '').lower()
+    cor_nam = request.POST.get('cor_nam', '').lower()
+    cor_ful_frm = request.POST.get('cor_ful_frm', '').lower()
     cor_dur = request.POST.get('cor_dur', '')
     cor_dit = request.POST.get('cor_dit', '')
     cor_pak = request.POST.get('cor_pak', '')
     cor_syllabus = request.FILES.get('cor_syllabus', '')
     if save_type == 'add':
-        cor_namex = course.objects.filter(cor_nam=cor_nam)
-        print(cor_namex[0])
-        if str(cor_namex[0]).lower() == cor_nam.lower():
+        if course.objects.filter(cor_nam=cor_nam).exists():
             pass
         else:
             course.objects.get_or_create(cor_cat=cor_cat, cor_nam=cor_nam, cor_ful_form=cor_ful_frm, cor_dur=cor_dur, cor_pak=cor_pak, cor_detail=cor_dit, cor_syllabus=cor_syllabus)
@@ -146,26 +139,23 @@ def std_reg(request):
 def add_std(request):
     save_type = request.POST.get('std_hid')
     std_frm_no = request.POST.get('std_form_num', '')
-    std_nam = request.POST.get('std_nam', '')
-    std_gender = request.POST.get('std_gen', '')
-    std_fat_nam = request.POST.get('std_fat_nam', '')
-    std_mot_nam = request.POST.get('std_mot_nam', '')
+    std_nam = request.POST.get('std_nam', '').lower()
+    std_gender = request.POST.get('std_gen', '').lower()
+    std_fat_nam = request.POST.get('std_fat_nam', '').lower()
+    std_mot_nam = request.POST.get('std_mot_nam', '').lower()
     std_dob = request.POST.get('std_dob', '')
     std_location = request.POST.get('std_location', '')
     std_mono = request.POST.get('std_mono', '')
     std_fat_mono = request.POST.get('std_fat_mono', '')
-    std_category = request.POST.get('std_cat', '')
-    std_course = request.POST.get('std_cor', '')
+    std_category = request.POST.get('std_cat', '').lower()
+    std_course = request.POST.get('std_cor', '').lower()
     std_lst_psd_cls = request.POST.get('std_lst_psd_cls', '')
     std_psd_year = request.POST.get('std_psd_year', '')
     std_board = request.POST.get('std_bord', '')
     std_gred = request.POST.get('std_gred', '')
     std_img = request.FILES.get('std_img', '')
-    # std_reg_det = request.POST.get('std_dob', '')
     if save_type == 'add':
-        std_namex = std_registration.objects.filter(reg_nam=std_nam)
-        # if std_registration.objects.filter(reg_nam=std_nam).exists() == True:
-        if str(std_namex[0]).lower() != std_nam.lower():
+        if std_registration.objects.filter(reg_nam=std_nam).exists():
             pass
         else:
             reg_std = std_registration(reg_frm_no=std_frm_no, reg_nam=std_nam, reg_gen=std_gender, reg_fat_nam=std_fat_nam, reg_mot_nam=std_mot_nam, reg_dob=std_dob, reg_location=std_location, reg_mono=std_mono, reg_fat_mono=std_fat_mono, reg_cat=std_category, reg_cor=std_course, reg_psd_cls=std_lst_psd_cls, reg_psd_year=std_psd_year, reg_board=std_board, reg_gred=std_gred, reg_img=std_img, reg_det=date.today())
@@ -174,19 +164,26 @@ def add_std(request):
     else:
         std_id = request.POST.get('std_id')
         std_registration.objects.filter(reg_id=std_id).update(reg_frm_no=std_frm_no, reg_nam=std_nam, reg_gen=std_gender, reg_fat_nam=std_fat_nam, reg_mot_nam=std_mot_nam, reg_location=std_location, reg_mono=std_mono, reg_fat_mono=std_fat_mono, reg_cat=std_category, reg_cor=std_course, reg_psd_cls=std_lst_psd_cls, reg_psd_year=std_psd_year, reg_board=std_board, reg_gred=std_gred)
-        return render(request, 'cit/std_list.html/', {'std_update_success' : True})
+        return render(request, 'cit/std_list.html/')#, {'std_update_success' : True})
 
 
-def std_list(request):
+def std_list(request, std_dit):
     if request.session.has_key('cit_user'):
-        all_std = std_registration.objects.all()
+        all_std = std_registration.objects.all().order_by('-reg_id')
         all_cors = course.objects.all()
-        std_cors = request.POST.get('std_cors', '')
-        std_nam = request.POST.get('std_nam', '')
-        if std_cors != '':
-            all_std = std_registration.objects.filter(reg_cor=std_cors)
-        if std_nam != '':
-            all_std = std_registration.objects.filter(reg_nam=std_nam.title())
+        inpt_nam = list(std_registration.objects.all())
+        for i in inpt_nam:
+            sel_nam = str(i).split(' ', 1)[0]
+            if sel_nam.lower() == std_dit.lower():
+                all_std = std_registration.objects.filter(reg_nam=str(i))
+                return render(request, 'cit/std_list.html', {'std' : all_std, 'all_cors' : all_cors})
+
+        if std_registration.objects.filter(reg_cor=std_dit.lower()).exists():
+            all_std = std_registration.objects.filter(reg_cor=std_dit.lower())
+        elif std_registration.objects.filter(reg_nam=std_dit.lower()).exists():
+            all_std = std_registration.objects.filter(reg_nam=std_dit.lower())
+        elif std_dit != 'non':
+            all_std = ''
         return render(request, 'cit/std_list.html', {'std' : all_std, 'all_cors' : all_cors})
     else:
         return render(request, 'cit/index.html', {'login_redirect' : False})

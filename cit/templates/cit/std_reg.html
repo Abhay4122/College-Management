@@ -50,7 +50,7 @@
 	                		<select class="form-control inpt_bx_blck mb20" name="std_cor">
 								<option> --- Select Course --- </option>
 								{% for i in course %}
-									<option value="{{i.cor_nam}}">{{i.cor_nam}}</option>
+									<option value="{{i.cor_nam}}">{{i.cor_nam|title}}</option>
 								{% endfor %}
 	                		</select>
 	                	</div>
@@ -70,7 +70,7 @@
 	                		<input type="text" name="std_img" class="form-control inpt_bx_blck mb20" placeholder="Student Image" onfocus="(this.type='file')" />
 	                	</div>
 	                	<div class="col-md-12" style="text-align: center;">
-		                	<button id="cor_sub" class="bor_btn_blk butt_on_blk">Submit<span></span><span></span></button>
+		                	<button class="bor_btn_blk butt_on_blk">Submit<span></span><span></span></button>
 		                </div>
 	                </form>
 	            </div>

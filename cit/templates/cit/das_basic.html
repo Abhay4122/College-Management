@@ -101,11 +101,8 @@
 	
 	</div>
 
-    <p id="flag_std_reg" class="frm_valid_line">{{flag_std_reg}}</p>
 	<p id="login_success" class="frm_valid_line">{{login_success}}</p>
 	<p id="flag_marks" class="frm_valid_line">{{flag_marks}}</p>
-	<p id="std_update_success" class="frm_valid_line">{{std_update_success}}</p>
-	<p id="std_del_success" class="frm_valid_line">{{std_del_success}}</p>
 	<p id="exm_add_success" class="frm_valid_line">{{exm_add_success}}</p>
 	<p id="exm_upd_success" class="frm_valid_line">{{exm_upd_success}}</p>
 	<p id="fee_add_success" class="frm_valid_line">{{fee_add_success}}</p>
@@ -145,7 +142,7 @@
 		// Student List
 		function std_lis(){
 			$('#admin_heading').text('Student List');
-			$('#main_place').load('/cit/std_list');
+			$('#main_place').load('/cit/std_list/non');
 		}
 		// Add Exam Marks
 		function exm_mark(){
@@ -172,9 +169,7 @@
 			$('#admin_heading').text('Student Enquery List');
 			$('#main_place').load('/cit/enqu');
 		}
-
 		// Course Add View Edit Delite Script
-
 		function del_cor(cor_id){
 			var confir = confirm('Do you want to delete Course with id = '+ cor_id +' Record ??');
 			if (confir == true){
@@ -188,7 +183,7 @@
 				}
 			}
 		}
-		
+		// Onclick Add Course Form
 		$(document).on('submit', '#add_cor_frm', function(e){
             e.preventDefault();
 			$.ajax({
@@ -221,11 +216,12 @@
 			// 		al_ert.innerHTML = 'Course '+ $('#cor_nam').val() +' Added Successfully !!';
             // });
         });
-
+		// Onclick update Course Button
 		function upd_cor(cor_id){
 			$('#admin_heading').text('Update Course Details');
 			$('#upd_cors').load('/cit/update_cors/' + cor_id);
 		}
+		// Onsubmit Updated Course
 		$(document).on('submit', '#upd_cor_frm', function(e){
             e.preventDefault();
 			$.ajax({
@@ -244,9 +240,7 @@
 				}
 			});
 		});
-		
 		// Student Add Script
-
 		$(document).on('submit', '#std_reg_frm', function(e){
 			e.preventDefault();
 			$.ajax({
@@ -257,19 +251,58 @@
 				processData:false,
 				success: function (response) {
 					alert('Student '+ $('#std_nam').val() +' Successfully Registerd !!');
+					$('#admin_heading').text('Student List');
+					$('#main_place').load('/cit/std_list/non');
 				},
 				error: function (data) {
 					alert('Student '+ $('#std_nam').val() +' Alredy Exist !!');
 				}
 			});
 		});
-		
-		var get_std_reg = document.getElementById('flag_std_reg').textContent
-        if(get_std_reg === 'True')
-        {
-            alert('Student Registration Successfull !!');
-            window.location.href = "/cit/std_reg";
-        }
+		// Onclick View Student
+		function std_view(std_id){
+			$('#admin_heading').text('Edit Student Record');
+			$('#main_place').load('/cit/std_view/' + std_id);
+		}
+		// Onclick Update Student
+		function upd_std(std_id){
+			$('#admin_heading').text('Edit Student Record');
+			$('#main_place').load('/cit/update_std/' + std_id);
+		}
+		// Student Update Script
+		$(document).on('submit', '#std_reg_frm_update', function(e){
+			e.preventDefault();
+			$.ajax({
+				url: '/cit/add_std',
+				method: 'POST',
+				data: new FormData(this),
+				contentType:false,
+				processData:false,
+				success: function (response) {
+					alert('Student '+ $('#std_nam').val() +' Successfully Updated !!');
+					$('#admin_heading').text('Student List');
+					$('#main_place').load('/cit/std_list/non');
+				},
+				error: function (data) {
+					alert('Student '+ $('#std_nam').val() +' Alredy Exist !!');
+				}
+			});
+		});
+		// Student Delete
+		function std_del(reg_id){
+			var confir = confirm('Do you want to delete Course with id = '+ reg_id +' Record ??');
+			if (confir == true){
+				var req = new XMLHttpRequest();
+				req.open('GET', '/cit/del_std/' + reg_id, true);
+				req.send();
+				req.onreadystatechange = function(){
+					if(req.readyState == 4 && req.status == 200){
+						$('#admin_heading').text('Student List');
+						$('#main_place').load('/cit/std_list/non');
+					}
+				}
+			}
+		}
 		
 		var get_login_success = document.getElementById('login_success').textContent
         if(get_login_success === 'True')
@@ -283,20 +316,6 @@
         {
             alert('Marks Added Successfully !!')
             window.location.href = "/cit/add_marks"
-        }
-
-		var get_std_update_success = document.getElementById('std_update_success').textContent
-        if(get_std_update_success === 'True')
-        {
-            alert('Student Details Updated Successfully !!')
-            window.location.href = "/cit/std_list"
-        }
-
-		var get_std_del_success = document.getElementById('std_del_success').textContent
-        if(get_std_del_success === 'True')
-        {
-            alert('Student Details Deleted Successfully !!')
-            window.location.href = "/cit/std_list"
         }
 
 		var get_exm_add_success = document.getElementById('exm_add_success').textContent

@@ -61,8 +61,8 @@
 							{% for i in course %}
 								<tr>
 									<th scope="row" class="text-center">{{forloop.counter}}</th>
-									<td>{{i.cor_cat}}</td>
-									<td>{{i.cor_nam}}</td>
+									<td>{{i.cor_cat|title}}</td>
+									<td>{{i.cor_nam|title}}</td>
 									<td>{{i.cor_dur}}</td>
 									<td>{{i.cor_pak}}</td>
 									<td>{{i.cor_detail|slice:'0:50'}}...</td>

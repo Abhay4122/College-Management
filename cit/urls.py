@@ -1,4 +1,5 @@
 from django.urls import path
+from django.conf.urls import url
 from . import views
 
 urlpatterns = [
@@ -17,7 +18,8 @@ urlpatterns = [
     path('del_cors/<int:cors_id>', views.del_cors, name='del_cors'),
     path('std_reg', views.std_reg, name='std_reg'),
     path('add_std', views.add_std, name='add_std'),
-    path('std_list', views.std_list, name='std_list'),
+    path('std_list/<str:std_dit>/', views.std_list, name='std_list'),
+    # url(r'^std_list/(?P<std_dit>[\s|\S]+)$', views.std_list, name='std_list'),
     path('std_view/<int:std_id>', views.std_view, name='std_view'),
     path('update_std/<int:std_id>', views.update_std, name='update_std'),
     path('del_std/<int:std_id>', views.del_std, name='del_std'),
