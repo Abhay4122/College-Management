@@ -3,12 +3,12 @@
 				{% for i in exm_detail %}
 					<div class="col-sm-10 col-md-push-1 sm-box3">
 						<div class="col-md-6">
-							<div class="col-md-12 title-small std_view">Name: <span> {{i.exm_std_nam}} </span></div>
-							<div class="col-md-12 title-small std_view">Father: <span> {{i.exm_fat_nam}} </span></div>
+							<div class="col-md-12 title-small std_view">Name: <span> {{i.exm_std_nam|title}} </span></div>
+							<div class="col-md-12 title-small std_view">Father: <span> {{i.exm_fat_nam|title}} </span></div>
 							<div class="col-md-12 title-small std_view">Form Number: <span> {{i.exm_frm_no}} </span></div>
 							<div class="col-md-12 title-small std_view">Enroll Number: <span> {{i.exm_enroll_no}} </span></div>
 							<div class="col-md-12 title-small std_view">Certificate Number: <span> {{i.exm_certi_no}} </span></div>
-							<div class="col-md-12 title-small std_view">Course: <span> {{i.exm_cors}} </span></div>
+							<div class="col-md-12 title-small std_view">Course: <span> {{i.exm_cors|upper}} </span></div>
 						</div>
 
 						<div class="col-md-6">
@@ -44,12 +44,3 @@
 					</div>
 				{% endfor %}
 			</div>
-			
-{% block js %}
-	<script>
-		function upd_mark(std_id){
-			$('#admin_heading').text('Edit Student Exam Record');
-			$('#main_place').load('/cit/update_marks/' + std_id);
-		}
-	</script>
-{% endblock %}

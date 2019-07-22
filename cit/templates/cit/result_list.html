@@ -27,9 +27,9 @@
 									<td>{{i.exm_frm_no}}</td>
 									<td>{{i.exm_enroll_no}}</td>
 									<td>{{i.exm_certi_no}}</td>
-									<td>{{i.exm_std_nam}}</td>
-									<td>{{i.exm_fat_nam}}</td>
-									<td>{{i.exm_cors}}</td>
+									<td>{{i.exm_std_nam|title}}</td>
+									<td>{{i.exm_fat_nam|title}}</td>
+									<td>{{i.exm_cors|title}}</td>
 									<td>{{i.exm_award_det}}</td>
 									<td>{{i.exm_session}}</td>
 									<td>{{i.exm_theory}}</td>
@@ -43,12 +43,3 @@
 					</table>
 				</div>
 			</div>
-
-{% block js %}
-	<script>
-		function result_view(std_id){
-			$('#admin_heading').text('Student Exam Record');
-			$('#main_place').load('/cit/result_view/' + std_id);
-		}
-	</script>
-{% endblock %}

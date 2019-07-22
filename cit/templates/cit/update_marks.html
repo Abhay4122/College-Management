@@ -1,14 +1,14 @@
 
 	        <div class="row col-p30">
 	            <div class="col-md-8 col-md-push-2 sm-box3">
-                    <form name="add_cor_frm" method="POST" enctype="multipart/form-data" action="/cit/marks">
+                    <form id="upd_exm_frm">
                         {% csrf_token %}
                         <div>
                             {% for i in exm_detail %}
                                 <input type="hidden" name="exm_hid" value="upd" />
                                 <input type="hidden" name="exm_id" value="{{i.exm_id}}" />
                                 <div class="col-md-6">
-                                    <input type="text" name="exm_std_nam" class="form-control inpt_bx_blck mb20" value="{{i.exm_std_nam}}" readonly />
+                                    <input type="text" id="std_nam" name="exm_std_nam" class="form-control inpt_bx_blck mb20" value="{{i.exm_std_nam}}" readonly />
                                 </div>
                                 <div class="col-md-6">
                                     <input type="text" name="exm_std_fat" class="form-control inpt_bx_blck mb20" value="{{i.exm_fat_nam}}" readonly />
@@ -54,7 +54,7 @@
                             {% endfor %}
 
                             <div class="col-md-12" style="text-align: center;">
-                                <button id="cor_sub" name="cors_sub" class="bor_btn_blk butt_on_blk">Update<span></span><span></span></button>
+                                <button name="cors_sub" class="bor_btn_blk butt_on_blk">Update<span></span><span></span></button>
                             </div>
                         </div>
 	                </form>

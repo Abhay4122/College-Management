@@ -102,11 +102,6 @@
 	</div>
 
 	<p id="login_success" class="frm_valid_line">{{login_success}}</p>
-	<p id="flag_marks" class="frm_valid_line">{{flag_marks}}</p>
-	<p id="exm_add_success" class="frm_valid_line">{{exm_add_success}}</p>
-	<p id="exm_upd_success" class="frm_valid_line">{{exm_upd_success}}</p>
-	<p id="fee_add_success" class="frm_valid_line">{{fee_add_success}}</p>
-	<p id="fee_upd_success" class="frm_valid_line">{{fee_upd_success}}</p>
 
 	<script src="{% static 'cit/js/jquery.min.js' %}"></script>
 	<script src="{% static 'cit/js/bootstrap.min.js' %}"></script>
@@ -121,53 +116,53 @@
 	<script>
 		
 		$(document).ready(function(){
-			$('#admin_heading').text('Dashboard');
 			$('#main_place').load('/cit/dashboard');
+			$('#admin_heading').text('Dashboard');
 		});
 		// Dashboard
 		function dashboard(){
-			$('#admin_heading').text('Dashboard');
 			$('#main_place').load('/cit/dashboard');
+			$('#admin_heading').text('Dashboard');
 		}
 		// Course
 		function course(){
-			$('#admin_heading').text('Course Detail');
 			$('#main_place').load('/cit/cou_rse');
+			$('#admin_heading').text('Course Detail');
 		}
 		// Add Student
 		function std_reg(){
-			$('#admin_heading').text('Add Student');
 			$('#main_place').load('/cit/std_reg');
+			$('#admin_heading').text('Add Student');
 		}
 		// Student List
 		function std_lis(){
-			$('#admin_heading').text('Student List');
 			$('#main_place').load('/cit/std_list/non');
+			$('#admin_heading').text('Student List');
 		}
 		// Add Exam Marks
 		function exm_mark(){
+			$('#main_place').load('/cit/add_marks/non');
 			$('#admin_heading').text('Add Exam Marks');
-			$('#main_place').load('/cit/add_marks');
 		}
 		// Result List
 		function result_lis(){
-			$('#admin_heading').text('Student Result List');
 			$('#main_place').load('/cit/result_list');
+			$('#admin_heading').text('Student Result List');
 		}
 		// Add Student Fee
 		function sub_fee(){
+			$('#main_place').load('/cit/add_fee/non');
 			$('#admin_heading').text('Add Student Fee');
-			$('#main_place').load('/cit/add_fee');
 		}
 		// Fee List
 		function fee_lis(){
-			$('#admin_heading').text('Student Fee List');
 			$('#main_place').load('/cit/fee_list');
+			$('#admin_heading').text('Student Fee List');
 		}
 		// Enquery List
 		function enq_list(){
-			$('#admin_heading').text('Student Enquery List');
 			$('#main_place').load('/cit/enqu');
+			$('#admin_heading').text('Student Enquery List');
 		}
 		// Course Add View Edit Delite Script
 		function del_cor(cor_id){
@@ -218,8 +213,8 @@
         });
 		// Onclick update Course Button
 		function upd_cor(cor_id){
-			$('#admin_heading').text('Update Course Details');
 			$('#upd_cors').load('/cit/update_cors/' + cor_id);
+			$('#admin_heading').text('Update Course Details');
 		}
 		// Onsubmit Updated Course
 		$(document).on('submit', '#upd_cor_frm', function(e){
@@ -261,13 +256,13 @@
 		});
 		// Onclick View Student
 		function std_view(std_id){
-			$('#admin_heading').text('Edit Student Record');
 			$('#main_place').load('/cit/std_view/' + std_id);
+			$('#admin_heading').text('Edit Student Record');
 		}
 		// Onclick Update Student
 		function upd_std(std_id){
-			$('#admin_heading').text('Edit Student Record');
 			$('#main_place').load('/cit/update_std/' + std_id);
+			$('#admin_heading').text('Edit Student Record');
 		}
 		// Student Update Script
 		$(document).on('submit', '#std_reg_frm_update', function(e){
@@ -303,47 +298,84 @@
 				}
 			}
 		}
+		// Add Student Exam Result
+		$(document).on('submit', '#add_exm_frm', function (e) {
+            e.preventDefault();
+            $.ajax({
+                url: '/cit/marks',
+                method: 'POST',
+                data: new FormData(this),
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    alert('Student ' + $('#std_nam').val() + ' Exam Result Successfully Added !!');
+                    $('#admin_heading').text('Student Result List');
+                    $('#main_place').load('/cit/result_list');
+                },
+                error: function (data) {
+                    alert('Student ' + $('#std_nam').val() + ' Alredy Exist !!');
+                }
+            });
+        });
+		// Onclick View Exam Result
+		function result_view(std_id){
+			$('#main_place').load('/cit/result_view/' + std_id);
+			$('#admin_heading').text('Student Exam Record');
+		}
+		// Onclick Update Exam Result
+		function upd_mark(std_id){
+			$('#main_place').load('/cit/update_marks/' + std_id);
+			$('#admin_heading').text('Edit Student Exam Record');
+		}
+		// Update Student Exam Result
+		$(document).on('submit', '#upd_exm_frm', function (e) {
+            e.preventDefault();
+            $.ajax({
+                url: '/cit/marks',
+                method: 'POST',
+                data: new FormData(this),
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    alert('Student ' + $('#std_nam').val() + ' Exam Result Successfully Updated !!');
+                    $('#admin_heading').text('Student Result List');
+                    $('#main_place').load('/cit/result_list');
+                },
+                error: function (data) {
+                    alert('Student ' + $('#std_nam').val() + ' Alredy Exist !!');
+                }
+            });
+        });
+		// Add / Update Student Fee
+		$(document).on('submit', '#add_fee_frm', function (e) {
+            e.preventDefault();
+            $.ajax({
+                url: '/cit/fee',
+                method: 'POST',
+                data: new FormData(this),
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    alert('Student ' + $('#fee_std_nam').val() + ' Fee Successfully Added !!');
+                    $('#admin_heading').text('Student Fee List');
+                    $('#main_place').load('/cit/fee_list');
+                },
+                error: function (data) {
+                    alert('Something is Wrong Please try again !!');
+                }
+            });
+        });
+		// Onclick View Fee
+		function fee_view(std_id){
+			$('#main_place').load('/cit/fee_view/' + std_id);
+			$('#admin_heading').text('Student Exam Result Details');
+		}
 		
 		var get_login_success = document.getElementById('login_success').textContent
         if(get_login_success === 'True')
         {
             alert('Welcome {{user_info.first_name}}' + ' ' + '{{user_info.last_name}}');
             window.location.href = "/cit/admin";
-        }
-
-		var get_flag_marks = document.getElementById('flag_marks').textContent
-        if(get_flag_marks === 'True')
-        {
-            alert('Marks Added Successfully !!')
-            window.location.href = "/cit/add_marks"
-        }
-
-		var get_exm_add_success = document.getElementById('exm_add_success').textContent
-        if(get_exm_add_success === 'True')
-        {
-            alert('Student Exam Result Added Successfully !!')
-            window.location.href = "/cit/add_marks"
-        }
-
-		var get_exm_upd_success = document.getElementById('exm_upd_success').textContent
-        if(get_exm_upd_success === 'True')
-        {
-            alert('Student Exam Result Updated Successfully !!')
-            window.location.href = "/cit/result_list"
-        }
-
-		var get_fee_add_success = document.getElementById('fee_add_success').textContent
-        if(get_fee_add_success === 'True')
-        {
-            alert('Student Fee Added Successfully !!')
-            window.location.href = "/cit/add_fee"
-        }
-
-		var get_fee_upd_success = document.getElementById('fee_upd_success').textContent
-        if(get_fee_upd_success === 'True')
-        {
-            alert('Student Fee Updated Successfully !!')
-            window.location.href = "/cit/add_fee"
         }
 	</script>
 

@@ -1,48 +1,56 @@
 
 	        <div class="row col-p30">
 				{% for i in fee_detail %}
-					<div class="col-sm-10 col-md-push-1 sm-box3">
+					<div class="col-sm-8 col-md-push-2 sm-box3">
 						<div class="col-md-6">
-							<div class="col-md-12 title-small std_view">Name: <span> {{i.fee_std_nam}} </span></div>
-							<div class="col-md-12 title-small std_view">Admission Date: <span> {{i.reg_det}} </span></div>
-							<div class="col-md-12 title-small std_view">Form Number: <span> {{i.reg_frm_no}} </span></div>
-							<div class="col-md-12 title-small std_view">Father: <span> {{i.reg_fat_nam}} </span></div>
-							<div class="col-md-12 title-small std_view">Mother: <span> {{i.reg_mot_nam}} </span></div>
-							<div class="col-md-12 title-small std_view">DOB: <span> {{i.reg_dob}} </span></div>
+							<div class="col-md-12 title-small std_view">Name: <span> {{i.fee_std_nam|title}} </span></div>
+							<div class="col-md-12 title-small std_view">Father: <span> {{i.fee_fat_nam|title}} </span></div>
+							<div class="col-md-12 title-small std_view">Course: <span> {{i.fee_cors|upper}} </span></div>
+							<div class="col-md-12 title-small std_view">Paid Fees: <span> {{i.total_fee}} </span></div>
+							<div class="col-md-12 title-small std_view">Due Fees: <span> {{i.due_fee}} </span></div>
 						</div>
 
 						<div class="col-md-6">
-							<img src="/media/{{i.reg_img}}" style="width: 200px;">
+							<img src="/media/{{i.fee_std_img}}" style="width: 200px;">
 						</div>
 						<div class="col-md-12">
-							<div class="col-md-12 title-small std_view">Address: <span> {{i.reg_location}} </span> </div>
+							<div class="col-md-12 title-small std_view">Address: <span> {{i.fee_location}} </span> </div>
 						</div>
 						<div class="col-md-6">
-							<div class="col-md-12 title-small std_view">Gender: <span> {{i.reg_gen}} </span> </div>
+							<div class="col-md-12 title-small std_view">Januery: {{i.jan_fee_det}} <span> {{i.jan_fee}} </span> </div>
 						</div>
 						<div class="col-md-6">
-							<div class="col-md-12 title-small std_view">Category: <span> {{i.reg_cat}} </span> </div>
+							<div class="col-md-12 title-small std_view">February: {{i.feb_fee_det}} <span> {{i.feb_fee}} </span> </div>
 						</div>
 						<div class="col-md-6">
-							<div class="col-md-12 title-small std_view">Student Number: <span> {{i.reg_mono}} </span> </div>
+							<div class="col-md-12 title-small std_view">March: {{i.mar_fee_det}} <span> {{i.mar_fee}} </span> </div>
 						</div>
 						<div class="col-md-6">
-							<div class="col-md-12 title-small std_view">Father Number: <span> {{i.reg_fat_mono}} </span> </div>
+							<div class="col-md-12 title-small std_view">April: {{i.apr_fee_det}} <span> {{i.apr_fee}} </span> </div>
 						</div>
 						<div class="col-md-6">
-							<div class="col-md-12 title-small std_view">Course: <span> {{i.reg_cor}} </span> </div>
+							<div class="col-md-12 title-small std_view">May: {{i.may_fee_det}} <span> {{i.may_fee}} </span> </div>
 						</div>
 						<div class="col-md-6">
-							<div class="col-md-12 title-small std_view">Last Pased Class/Course: <span> {{i.reg_psd_cls}} </span> </div>
+							<div class="col-md-12 title-small std_view">June: {{i.jun_fee_det}} <span> {{i.jun_fee}} </span> </div>
 						</div>
 						<div class="col-md-6">
-							<div class="col-md-12 title-small std_view">Passing Year: <span> {{i.reg_psd_year}} </span> </div>
+							<div class="col-md-12 title-small std_view">July: {{i.jul_fee_det}} <span> {{i.jul_fee}} </span> </div>
 						</div>
 						<div class="col-md-6">
-							<div class="col-md-12 title-small std_view">Board/University: <span> {{i.reg_board}} </span> </div>
+							<div class="col-md-12 title-small std_view">August: {{i.aug_fee_det}} <span> {{i.aug_fee}} </span> </div>
 						</div>
 						<div class="col-md-6">
-							<div class="col-md-12 title-small std_view">Grade/Division: <span> {{i.reg_gred}} </span> </div>
+							<div class="col-md-12 title-small std_view">September: {{i.sep_fee_det}} <span> {{i.sep_fee}} </span> </div>
+						</div>
+						<div class="col-md-6">
+							<div class="col-md-12 title-small std_view">October: {{i.oct_fee_det}} <span> {{i.oct_fee}} </span> </div>
+						</div>
+						<div class="col-md-6">
+							<div class="col-md-12 title-small std_view">November: {{i.nov_fee_det}} <span> {{i.nov_fee}} </span> </div>
+						</div>
+						<div class="col-md-6">
+							<div class="col-md-12 title-small std_view">December: {{i.dec_fee_det}} <span> {{i.dec_fee}} </span> </div>
 						</div>
 						<div class="col-md-12" style="text-align: center;">
 							<a name="std_up" class="bor_btn_blk butt_on_blk" href="#">Print Record<span></span><span></span></a>

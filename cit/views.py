@@ -1,10 +1,12 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.models import User
 from .models import inquery, course, std_registration, std_exm_marks, std_fee
 from django.contrib.auth import authenticate, login, logout
 from django.core.files.storage import FileSystemStorage
 from datetime import date
+from django.core import serializers
+import json
 
 # Create your views here.
 def index(request):
@@ -211,25 +213,27 @@ def del_std(request, std_id):
     return render(request, 'cit/std_list.html/', {'std_del_success' : True})
 
 
-def add_marks(request):
+def add_marks(request, std_dt):
     if request.session.has_key('cit_user'):
         all_cors = course.objects.all()
-        all_std = ''; hid_val = 0
-        exm_cors = request.POST.get('exm_cors', '')
-        exm_nam = request.POST.get('exm_nam', '')
-        exm_fat = request.POST.get('exm_fat', '')
-        if exm_cors != '':
-            all_std = std_registration.objects.filter(reg_cor=exm_cors)
-            hid_val = 1
-            request.session['exm_cors'] = exm_cors
-        if exm_nam != '':
-            all_std = std_registration.objects.filter(reg_nam=exm_nam).filter(reg_cor=request.session['exm_cors'])
-            hid_val = 2
-            request.session['exm_nam'] = exm_nam
-        if exm_fat != '':
-            all_std = std_registration.objects.filter(reg_fat_nam=exm_fat).filter(reg_nam=request.session['exm_nam']).filter(reg_cor=request.session['exm_cors'])
-            hid_val = 3
-        return render(request, 'cit/exam_marks.html', {'all_std' : all_std, 'all_cors' : all_cors, 'hid_val' : hid_val})
+        if std_registration.objects.filter(reg_cor=std_dt.lower()).exists():
+            request.session['fee_cors'] = std_dt
+            all_std = std_registration.objects.filter(reg_cor=std_dt.lower())
+            data = serializers.serialize('json', all_std)
+            return HttpResponse(data, content_type="application/json")
+            
+        if std_registration.objects.filter(reg_nam=std_dt.lower()).exists():
+            request.session['fee_nam'] = std_dt
+            std_fat = std_registration.objects.filter(reg_nam=std_dt.lower())
+            data = serializers.serialize('json', std_fat)
+            return HttpResponse(data, content_type="application/json")
+        
+        if std_registration.objects.filter(reg_cor=request.session['fee_cors']) and std_registration.objects.filter(reg_nam=request.session['fee_nam']) and std_registration.objects.filter(reg_fat_nam=std_dt):
+            all_std = std_registration.objects.filter(reg_cor=request.session['fee_cors']).filter(reg_nam=request.session['fee_nam']).filter(reg_fat_nam=std_dt)
+            data = serializers.serialize('json', all_std)
+            return HttpResponse(data, content_type="application/json")
+
+        return render(request, 'cit/exam_marks.html', {'all_cors' : all_cors})
     else:
         return render(request, 'cit/index.html', {'login_redirect' : False})
 
@@ -254,8 +258,11 @@ def marks(request):
         exm_oral = request.POST.get('exm_oral', '')
         total = int(exm_theory) + int(exm_prect) + int(exm_oral)
         if save_typ == 'add':
-            std_exm_marks.objects.create(exm_std_img=exm_std_img, exm_std_id=exm_std_id, exm_frm_no=exm_reg_num, exm_enroll_no=exm_enroll, exm_certi_no=exm_certi, exm_std_nam=exm_std_nam, exm_fat_nam=exm_std_fat, exm_location=exm_location, exm_cors=exm_std_cors, exm_det=exm_det, exm_award_det=exm_award_det, exm_session=exm_session, exm_theory=exm_theory, exm_prect=exm_prect, exm_oral=exm_oral, exm_total=total)
-            return render(request, 'cit/exam_marks.html', {'exm_add_success' : True})
+            if std_exm_marks.objects.filter(exm_std_nam=exm_std_nam) and std_exm_marks.objects.filter(exm_fat_nam=exm_std_fat):
+                pass
+            else:
+                std_exm_marks.objects.create(exm_std_img=exm_std_img, exm_std_id=exm_std_id, exm_frm_no=exm_reg_num, exm_enroll_no=exm_enroll, exm_certi_no=exm_certi, exm_std_nam=exm_std_nam, exm_fat_nam=exm_std_fat, exm_location=exm_location, exm_cors=exm_std_cors, exm_det=exm_det, exm_award_det=exm_award_det, exm_session=exm_session, exm_theory=exm_theory, exm_prect=exm_prect, exm_oral=exm_oral, exm_total=total)
+                return render(request, 'cit/exam_marks.html')#, {'exm_add_success' : True})
         else:
             exm_id = request.POST.get('exm_id', '')
             std_exm_marks.objects.filter(exm_id=exm_id).update(exm_enroll_no=exm_enroll, exm_certi_no=exm_certi, exm_det=exm_det, exm_award_det=exm_award_det, exm_session=exm_session, exm_theory=exm_theory, exm_prect=exm_prect, exm_oral=exm_oral, exm_total=total)
@@ -302,37 +309,55 @@ def view_cretificate(request):
         return render(request, 'cit/index.html', {'login_redirect' : False})
 
 
-def add_fee(request):
+def add_fee(request, std_dt):
     if request.session.has_key('cit_user'):
         all_cors = course.objects.all()
-        all_std = ''; hid_val = 0
-        fee_cors = request.POST.get('fee_cors', '')
-        fee_nam = request.POST.get('fee_nam', '')
-        fee_fat = request.POST.get('fee_fat', '')
-        if fee_cors != '':
-            all_std = std_registration.objects.filter(reg_cor=fee_cors)
-            hid_val = 1
-            request.session['fee_cors'] = fee_cors
-        if fee_nam != '':
-            all_std = std_registration.objects.filter(reg_nam=fee_nam).filter(reg_cor=request.session['fee_cors'])
-            hid_val = 2
-            request.session['fee_nam'] = fee_nam
-        if fee_fat != '':
-            all_std = std_registration.objects.filter(reg_fat_nam=fee_fat).filter(reg_nam=request.session['fee_nam']).filter(reg_cor=request.session['fee_cors'])
-            hid_val = 3
-        cors_pak = course.objects.filter(cor_nam=request.session['fee_cors'])
-        for i in cors_pak:
-            request.session['cors_pak'] = cors_pak = i.cor_pak
-        if std_fee.objects.filter(fee_cors=request.session['fee_cors']) and std_fee.objects.filter(fee_std_nam=request.session['fee_nam']) and std_fee.objects.filter(fee_fat_nam=fee_fat):
-            fee_detail = std_fee.objects.filter(fee_cors=request.session['fee_cors']).filter(fee_std_nam=request.session['fee_nam']).filter(fee_fat_nam=fee_fat)
-            total_paid = 0
-            for i in fee_detail:
-                total_paid = i.jan_fee + i.feb_fee + i.mar_fee + i.apr_fee + i.may_fee + i.jun_fee + i.jul_fee + i.aug_fee + i.sep_fee + i.oct_fee + i.nov_fee + i.dec_fee
-            due_fee = int(cors_pak) - total_paid
-            # all_std = fee_detail
-            return render(request, 'cit/std_fee.html', {'all_std' : all_std, 'all_cors' : all_cors, 'hid_val' : hid_val, 'cors_pak' : cors_pak, 'total_paid' : total_paid, 'due_fee' : due_fee, 'fee_detail' : fee_detail, 'fee_exist' : True})
-        else:
-            return render(request, 'cit/std_fee.html', {'all_std' : all_std, 'all_cors' : all_cors, 'hid_val' : hid_val, 'cors_pak' : cors_pak, 'fee_not_exist' : True})
+        if std_registration.objects.filter(reg_cor=std_dt.lower()).exists():
+            request.session['fee_cors'] = std_dt
+            all_std = std_registration.objects.filter(reg_cor=std_dt.lower())
+            data = serializers.serialize('json', all_std)
+            return HttpResponse(data, content_type="application/json")
+            
+        if std_registration.objects.filter(reg_nam=std_dt.lower()).exists():
+            request.session['fee_nam'] = std_dt
+            std_fat = std_registration.objects.filter(reg_nam=std_dt.lower())
+            data = serializers.serialize('json', std_fat)
+            return HttpResponse(data, content_type="application/json")
+        
+        if std_registration.objects.filter(reg_cor=request.session['fee_cors']) and std_registration.objects.filter(reg_nam=request.session['fee_nam']) and std_registration.objects.filter(reg_fat_nam=std_dt):
+            all_std = std_registration.objects.filter(reg_cor=request.session['fee_cors']).filter(reg_nam=request.session['fee_nam']).filter(reg_fat_nam=std_dt)
+            cors_pak = course.objects.filter(cor_nam=request.session['fee_cors'])
+            for i in cors_pak:
+                request.session['cors_pak'] = cors_pak = i.cor_pak
+            if std_fee.objects.filter(fee_cors=request.session['fee_cors']) and std_fee.objects.filter(fee_std_nam=request.session['fee_nam']) and std_fee.objects.filter(fee_fat_nam=std_dt):
+                fee_detail = std_fee.objects.filter(fee_cors=request.session['fee_cors']).filter(fee_std_nam=request.session['fee_nam']).filter(fee_fat_nam=std_dt)
+                total_paid = 0
+                for i in fee_detail:
+                    total_paid = i.jan_fee + i.feb_fee + i.mar_fee + i.apr_fee + i.may_fee + i.jun_fee + i.jul_fee + i.aug_fee + i.sep_fee + i.oct_fee + i.nov_fee + i.dec_fee
+                due_fee = int(cors_pak) - total_paid
+                data = {
+                    'all_std' : serializers.serialize('json', all_std),
+                    'fee_detail' : serializers.serialize('json', fee_detail),
+                    'cors_pak' : cors_pak,
+                    'total_paid' : total_paid,
+                    'due_fee' : due_fee,
+                    'fee_exist' : True
+                }
+                return HttpResponse(json.dumps(data), content_type="application/json")
+                # return render(request, 'cit/std_fee.html', {'all_std' : all_std, 'all_cors' : all_cors, 'cors_pak' : cors_pak, 'total_paid' : total_paid, 'due_fee' : due_fee, 'fee_detail' : fee_detail, 'fee_exist' : True})
+            else:
+                print(3 * '\n')
+                data = {
+                    'all_std' : serializers.serialize('json', all_std),
+                    'fee_detail' : serializers.serialize('json', all_std),
+                    'cors_pak' : cors_pak,
+                    'total_paid' : 0,
+                    'due_fee' : cors_pak,
+                    'fee_not_exist' : True
+                }
+                return HttpResponse(json.dumps(data), content_type="application/json")
+                # return render(request, 'cit/std_fee.html', {'all_cors' : all_cors, 'cors_pak' : cors_pak, 'fee_not_exist' : True})
+        return render(request, 'cit/std_fee.html', {'all_cors' : all_cors})
     else:
         return render(request, 'cit/index.html', {'login_redirect' : False})
 

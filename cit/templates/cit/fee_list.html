@@ -29,9 +29,9 @@
 							{% for i in all_fee %}
 								<tr>
 									<th scope="row" class="text-center">{{forloop.counter}}</th>
-									<td>{{i.fee_std_nam}}</td>
-									<td>{{i.fee_fat_nam}}</td>
-									<td>{{i.fee_cors}}</td>
+									<td>{{i.fee_std_nam|title}}</td>
+									<td>{{i.fee_fat_nam|title}}</td>
+									<td>{{i.fee_cors|upper}}</td>
 									<td>{{i.jan_fee}}</td>
 									<td>{{i.feb_fee}}</td>
 									<td>{{i.mar_fee}}</td>
@@ -53,12 +53,3 @@
 					</table>
 				</div>
 			</div>
-
-{% block js %}
-	<script>
-		function fee_view(std_id){
-			$('#admin_heading').text('Student Exam Record');
-			$('#main_place').load('/cit/fee_view/' + std_id);
-		}
-	</script>
-{% endblock %}
