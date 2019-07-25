@@ -230,8 +230,13 @@ def add_marks(request, std_dt):
         
         if std_registration.objects.filter(reg_cor=request.session['fee_cors']) and std_registration.objects.filter(reg_nam=request.session['fee_nam']) and std_registration.objects.filter(reg_fat_nam=std_dt):
             all_std = std_registration.objects.filter(reg_cor=request.session['fee_cors']).filter(reg_nam=request.session['fee_nam']).filter(reg_fat_nam=std_dt)
-            data = serializers.serialize('json', all_std)
-            return HttpResponse(data, content_type="application/json")
+            # data = serializers.serialize('json', all_std)
+            # return HttpResponse(data, content_type="application/json")
+            data = {
+                'all_std' : serializers.serialize('json', all_std),
+                'std_id' : all_std[0].reg_id
+            }
+            return HttpResponse(json.dumps(data), content_type="application/json")
 
         return render(request, 'cit/exam_marks.html', {'all_cors' : all_cors})
     else:
@@ -337,6 +342,7 @@ def add_fee(request, std_dt):
                 due_fee = int(cors_pak) - total_paid
                 data = {
                     'all_std' : serializers.serialize('json', all_std),
+                    'std_id' : all_std[0].reg_id,
                     'fee_detail' : serializers.serialize('json', fee_detail),
                     'cors_pak' : cors_pak,
                     'total_paid' : total_paid,
@@ -349,6 +355,7 @@ def add_fee(request, std_dt):
                 print(3 * '\n')
                 data = {
                     'all_std' : serializers.serialize('json', all_std),
+                    'std_id' : all_std[0].reg_id,
                     'fee_detail' : serializers.serialize('json', all_std),
                     'cors_pak' : cors_pak,
                     'total_paid' : 0,

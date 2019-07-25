@@ -262,8 +262,8 @@
                     success: function (data) {
                         var std = $.parseJSON(data.all_std);
                         var fee = $.parseJSON(data.fee_detail);
-                        // alert(fee[0].fields.reg_nam);
-                        return_str = `<input type="hidden" name="fee_std_id" value="${std[0].fields.reg_id}" />
+                        // alert(data.std_id);
+                        return_str = `<input type="hidden" name="fee_std_id" value="${data.std_id}" />
                                 <input type="hidden" name="fee_std_img" value="${std[0].fields.reg_img}" />
                                 <div class="col-md-6">
                                     <input type="text" id="fee_std_nam" name="fee_std_nam" class="form-control inpt_bx_blck mb20" value="${std[0].fields.reg_nam}" readonly />

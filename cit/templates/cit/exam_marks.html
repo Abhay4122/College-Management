@@ -113,23 +113,25 @@
                     data: { get_param: 'value' },
                     dataType: 'json',
                     success: function (data) {
-                        console.log(data[0]);
-                        return_str = `<input type="hidden" name="exm_std_id" value="${data[0].fields.reg_id}" />
-                                <input type="hidden" name="exm_std_img" value="${data[0].fields.reg_img}" />
+                        // console.log(data[0]);
+                        // alert(data.std_id)
+                        var std = $.parseJSON(data.all_std);
+                        return_str = `<input type="hidden" name="exm_std_id" value="${data.std_id}" />
+                                <input type="hidden" name="exm_std_img" value="${std[0].fields.reg_img}" />
                                 <div class="col-md-6">
-                                    <input type="text" id="std_nam" name="exm_std_nam" class="form-control inpt_bx_blck mb20" value="${data[0].fields.reg_nam}" readonly />
+                                    <input type="text" id="std_nam" name="exm_std_nam" class="form-control inpt_bx_blck mb20" value="${std[0].fields.reg_nam}" readonly />
                                 </div>
                                 <div class="col-md-6">
-                                    <input type="text" name="exm_std_fat" class="form-control inpt_bx_blck mb20" value="${data[0].fields.reg_fat_nam}" readonly />
+                                    <input type="text" name="exm_std_fat" class="form-control inpt_bx_blck mb20" value="${std[0].fields.reg_fat_nam}" readonly />
                                 </div>
                                 <div class="col-md-6">
-                                    <input type="text" name="exm_reg_num" class="form-control inpt_bx_blck mb20" value="${data[0].fields.reg_frm_no}" readonly />
+                                    <input type="text" name="exm_reg_num" class="form-control inpt_bx_blck mb20" value="${std[0].fields.reg_frm_no}" readonly />
                                 </div>
                                 <div class="col-md-6">
-                                    <input type="text" name="exm_location" class="form-control inpt_bx_blck mb20" value="${data[0].fields.reg_location}" readonly />
+                                    <input type="text" name="exm_location" class="form-control inpt_bx_blck mb20" value="${std[0].fields.reg_location}" readonly />
                                 </div>
                                 <div class="col-md-6">
-                                    <input type="text" name="exm_std_cors" class="form-control inpt_bx_blck mb20" value="${data[0].fields.reg_cor}" readonly />
+                                    <input type="text" name="exm_std_cors" class="form-control inpt_bx_blck mb20" value="${std[0].fields.reg_cor}" readonly />
                                 </div>`;
                         $("#exm_hid").prepend(return_str);
                         hid1.hide();
